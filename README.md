@@ -1,5 +1,8 @@
 # Team-101-9
 
+###[Project Proposal](https://md.kaneki.dev/s/tGSCxq87P)
+
+###[Figma Preview](https://www.figma.com/file/yJRPTY21olQ6McEhmj2CTK/CS346---StreamTune?type=design&node-id=0%3A1&mode=design&t=w3VmVYUgJBKzUz8h-1)
 
 
 ## Getting started
