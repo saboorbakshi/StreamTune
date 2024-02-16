@@ -16,6 +16,6 @@
 
 ### Frameworks:
 
-Frontend:
+Frontend: Compose
 
 Backend: Firebase
