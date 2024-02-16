@@ -14,7 +14,7 @@
 
 [Kotlin](https://kotlinlang.org/docs/command-line.html#sdkman)
 
-### Frameworks:
+### Frameworks
 
 Frontend: Compose
 
