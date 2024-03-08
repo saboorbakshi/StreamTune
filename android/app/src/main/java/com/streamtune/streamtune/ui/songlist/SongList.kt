@@ -50,7 +50,7 @@ fun SongList(vm: SongListViewModel) {
 
                     for (i in 1..20) {
                         item {
-                            SongCard()
+                            SongCard(SongCardViewModel(vm.navController))
                             HorizontalDivider()
                         }
                     }
