@@ -16,6 +16,8 @@ import com.streamtune.streamtune.ui.addsong.AddSong
 import com.streamtune.streamtune.ui.addsong.AddSongViewModel
 import com.streamtune.streamtune.ui.greeting.Greeting
 import com.streamtune.streamtune.ui.greeting.GreetingViewModel
+import com.streamtune.streamtune.ui.playback.PlaybackScreen
+import com.streamtune.streamtune.ui.playback.PlaybackViewModel
 import com.streamtune.streamtune.ui.songlist.SongList
 import com.streamtune.streamtune.ui.songlist.SongListViewModel
 import com.streamtune.streamtune.ui.theme.StreamTuneTheme
@@ -51,6 +53,9 @@ private fun MainScreen() {
             }
             composable("addsong") {
                 AddSong(AddSongViewModel(navController))
+            }
+            composable("playback") {
+                PlaybackScreen(PlaybackViewModel())
             }
         }
 

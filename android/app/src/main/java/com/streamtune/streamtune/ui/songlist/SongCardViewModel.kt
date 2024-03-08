@@ -7,7 +7,7 @@ class SongCardViewModel(navController: NavController) : ViewModel() {
 
     val onClick: () -> Unit = {
 
-
+        navController.navigate("playback")
 
     }
 
