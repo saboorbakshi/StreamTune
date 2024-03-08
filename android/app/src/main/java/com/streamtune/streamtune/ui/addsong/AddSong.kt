@@ -1,4 +1,4 @@
-package com.streamtune.streamtune.ui
+package com.streamtune.streamtune.ui.addsong
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -14,6 +14,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -21,11 +25,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import com.streamtune.streamtune.R
+import com.streamtune.streamtune.ui.theme.StreamTuneTheme
 
-@Preview
 @Composable
-fun AddSong() {
+fun AddSong(vm: AddSongViewModel) {
 
     Surface(Modifier.fillMaxSize()) {
 
@@ -36,18 +41,19 @@ fun AddSong() {
 
             Spacer(Modifier.height(50.dp))
 
+            var url by remember { mutableStateOf("") }
             OutlinedTextField(
-                value = "",
-                label = { Text("Link or Search YouTube") },
+                value = url,
+                label = { Text("YouTube Link") },
                 leadingIcon = { Image(painter = painterResource(id = R.drawable.search), contentDescription = "Search") },
                 modifier = Modifier.fillMaxWidth(),
-                onValueChange = {}
+                onValueChange = {url = it}
             )
 
             Button(content = { Text("FIND") }, modifier = Modifier
                 .fillMaxWidth()
                 .padding(0.dp, 15.dp, 0.dp, 0.dp),
-                onClick = {}
+                onClick = vm.onAddSong
             )
 
             Spacer(Modifier.height(100.dp))
@@ -56,4 +62,12 @@ fun AddSong() {
 
     }
 
+}
+
+@Preview
+@Composable
+private fun AddSongPreview() {
+    StreamTuneTheme {
+        AddSong(AddSongViewModel(rememberNavController()))
+    }
 }

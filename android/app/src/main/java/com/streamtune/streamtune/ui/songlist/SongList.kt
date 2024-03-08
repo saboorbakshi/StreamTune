@@ -29,7 +29,7 @@ fun SongList(vm: SongListViewModel) {
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(onClick = vm.onAddSongButtonClick) {
-                Icon(Icons.Filled.Add, "")
+                Icon(Icons.Filled.Add, "Add Song")
             }
         }, content = {
 

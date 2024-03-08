@@ -12,7 +12,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.streamtune.streamtune.ui.AddSong
+import com.streamtune.streamtune.ui.addsong.AddSong
+import com.streamtune.streamtune.ui.addsong.AddSongViewModel
 import com.streamtune.streamtune.ui.greeting.Greeting
 import com.streamtune.streamtune.ui.greeting.GreetingViewModel
 import com.streamtune.streamtune.ui.songlist.SongList
@@ -49,7 +50,7 @@ private fun MainScreen() {
                 SongList(SongListViewModel(navController))
             }
             composable("addsong") {
-                AddSong()
+                AddSong(AddSongViewModel(navController))
             }
         }
 
