@@ -12,9 +12,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.streamtune.streamtune.ui.AddSong
 import com.streamtune.streamtune.ui.greeting.Greeting
 import com.streamtune.streamtune.ui.greeting.GreetingViewModel
 import com.streamtune.streamtune.ui.songlist.SongList
+import com.streamtune.streamtune.ui.songlist.SongListViewModel
 import com.streamtune.streamtune.ui.theme.StreamTuneTheme
 
 class MainActivity : ComponentActivity() {
@@ -44,7 +46,10 @@ private fun MainScreen() {
                 Greeting(GreetingViewModel(navController))
             }
             composable("songlist") {
-                SongList()
+                SongList(SongListViewModel(navController))
+            }
+            composable("addsong") {
+                AddSong()
             }
         }
 

@@ -93,7 +93,7 @@ fun Greeting(vm: GreetingViewModel) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+private fun GreetingPreview() {
     StreamTuneTheme {
         Greeting(GreetingViewModel(rememberNavController()))
     }

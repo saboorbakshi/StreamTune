@@ -25,7 +25,7 @@ import com.streamtune.streamtune.R
 
 @Preview
 @Composable
-fun SongList() {
+fun AddSong() {
 
     Surface(Modifier.fillMaxSize()) {
 
