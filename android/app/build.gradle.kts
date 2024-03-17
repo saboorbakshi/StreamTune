@@ -72,4 +72,5 @@ dependencies {
     // https://firebase.google.com/docs/android/setup#available-libraries
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation("com.google.firebase:firebase-analytics")
+
 }
