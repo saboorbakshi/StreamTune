@@ -8,5 +8,4 @@ class AddSongViewModel(navController: NavController): ViewModel() {
     val onAddSong: () -> Unit = {
         navController.navigate("songlist")
     }
-
 }

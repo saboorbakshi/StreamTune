@@ -1,17 +1,17 @@
-package com.streamtune.streamtune.ui.greeting
+package com.streamtune.streamtune.ui.register
 
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class GreetingViewModel(private val navController: NavController) : ViewModel() {
+class RegisterViewModel(private val navController: NavController) : ViewModel() {
 
-    val onMainButtonClick: () -> Unit = {
+    val onRegButtonClick: () -> Unit = {
         navController.navigate("songlist")
     }
 
     val onAuxButtonClick: () -> Unit = {
-        navController.navigate("register")
+        navController.navigate("greeting")
     }
 
 }

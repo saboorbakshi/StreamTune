@@ -1,4 +1,4 @@
-package com.streamtune.streamtune.ui.greeting
+package com.streamtune.streamtune.ui.register
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -31,7 +31,7 @@ import com.streamtune.streamtune.ui.theme.StreamTuneTheme
 
 
 @Composable
-fun Greeting(vm: GreetingViewModel) {
+fun Register(vm: RegisterViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -41,11 +41,25 @@ fun Greeting(vm: GreetingViewModel) {
     ) {
 
         Text(
-            text = "Login",
+            text = "Sign up",
             style = MaterialTheme.typography.bodyLarge.copy(fontSize = 30.sp,
                 fontWeight = FontWeight.Bold)
         )
         Spacer(modifier = Modifier.height(20.dp))
+
+        var firstName by remember { mutableStateOf("") }
+        OutlinedTextField(
+            value = firstName,
+            onValueChange = { firstName = it },
+            label = { Text("First name") }
+        )
+
+        var lastName by remember { mutableStateOf("") }
+        OutlinedTextField(
+            value = lastName,
+            onValueChange = { lastName = it },
+            label = { Text("Last name") }
+        )
 
         var username by remember { mutableStateOf("") }
         OutlinedTextField(
@@ -65,15 +79,15 @@ fun Greeting(vm: GreetingViewModel) {
         Spacer(modifier = Modifier.height(10.dp))
 
         Button(
-            onClick = vm.onMainButtonClick,
+            onClick = vm.onRegButtonClick,
             modifier = Modifier.width(200.dp)
         ) {
-            Text("Login")
+            Text("Sign up")
         }
 
         val interactionSource = remember { MutableInteractionSource() }
         Text(
-            text = "No Account? Sign Up!",
+            text = "Already Have an Account? Log In",
             color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier
@@ -91,6 +105,6 @@ fun Greeting(vm: GreetingViewModel) {
 @Composable
 private fun GreetingPreview() {
     StreamTuneTheme {
-        Greeting(GreetingViewModel(rememberNavController()))
+        Register(RegisterViewModel(rememberNavController()))
     }
 }

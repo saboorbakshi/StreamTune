@@ -18,6 +18,8 @@ import com.streamtune.streamtune.ui.greeting.Greeting
 import com.streamtune.streamtune.ui.greeting.GreetingViewModel
 import com.streamtune.streamtune.ui.playback.PlaybackScreen
 import com.streamtune.streamtune.ui.playback.PlaybackViewModel
+import com.streamtune.streamtune.ui.register.Register
+import com.streamtune.streamtune.ui.register.RegisterViewModel
 import com.streamtune.streamtune.ui.songlist.SongList
 import com.streamtune.streamtune.ui.songlist.SongListViewModel
 import com.streamtune.streamtune.ui.theme.StreamTuneTheme
@@ -27,9 +29,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             StreamTuneTheme {
-
                 MainScreen()
-
             }
         }
     }
@@ -48,6 +48,9 @@ private fun MainScreen() {
             composable("greeting") {
                 Greeting(GreetingViewModel(navController))
             }
+            composable("register") {
+                Register(RegisterViewModel(navController))
+            }
             composable("songlist") {
                 SongList(SongListViewModel(navController))
             }
@@ -57,6 +60,7 @@ private fun MainScreen() {
             composable("playback") {
                 PlaybackScreen(PlaybackViewModel())
             }
+
         }
 
     }

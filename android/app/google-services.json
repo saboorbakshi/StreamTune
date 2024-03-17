@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1017402874934",
+    "firebase_url": "https://streamtune-c6019-default-rtdb.firebaseio.com",
+    "project_id": "streamtune-c6019",
+    "storage_bucket": "streamtune-c6019.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017402874934:android:2c9a30b91be698427ecc97",
+        "android_client_info": {
+          "package_name": "com.streamtune.streamtune"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC-Jf9JgVPa_9xW-6NJlyFmXznPsrbYf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
