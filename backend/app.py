@@ -51,7 +51,7 @@ def convert():
         thumbnail_url = snapshot[songID]['album_cover']
         author = snapshot[songID].get('artist', "")
     users_songs = ref.child('UserPlaylists')
-    if len(users_songs.child(uid).child("Added Songs").get()) == 0:
+    if len(users_songs.order_by_key().equal_to(uid).get()) == 0:
         users_songs.child(uid).child("Added Songs").set({
             'name': "Added Songs"
         })
