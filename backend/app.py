@@ -83,6 +83,11 @@ def createPlaylist():
     uid = decoded_token['uid']
     data = request.get_json()
     name = data["name"]
+    users_songs = ref.child('UserPlaylists')
+    if len(users_songs.order_by_key().equal_to(uid).get()) == 0:
+        users_songs.child(uid).child("Added Songs").set({
+            'name': "Added Songs"
+        })
     ref.child('UserPlaylists').child(uid).child(name).set({
         'name': name
     })
@@ -120,6 +125,9 @@ def getPlaylists():
     except:
         return "Unauthorized", 403
     uid = decoded_token['uid']
+    users_songs = ref.child('UserPlaylists')
+    if len(users_songs.order_by_key().equal_to(uid).get()) == 0:
+        return [], 200
     snapshot = ref.child('UserPlaylists').child(uid).get()
     playlistResponse = []
     for playlistName, playlist in snapshot.items():
