@@ -6,6 +6,7 @@
 
 * [Sprint 1](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Release-Notes:-Sprint-1)
 * [Sprint 2](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Release-Notes:-Sprint-2)
+* [Sprint 3](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Release-Notes:-Sprint-3)
 
 ## Getting Started
 
