@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.streamtune.streamtune.R
+import com.streamtune.streamtune.model.Song
 import com.streamtune.streamtune.ui.theme.StreamTuneTheme
 
 
@@ -57,11 +58,11 @@ fun SongCard(vm: SongCardViewModel) {
 
             Column(verticalArrangement = Arrangement.Center) {
 
-                Text(text = "夜に駆ける", fontWeight = FontWeight.SemiBold, fontSize = 24.sp)
+                Text(text = vm.song.title, fontWeight = FontWeight.SemiBold, fontSize = 24.sp)
 
                 Spacer(Modifier.height(5.dp))
 
-                Text("YOASOBI", fontWeight = FontWeight.Medium, fontSize = 18.sp)
+                Text(vm.song.artist, fontWeight = FontWeight.Medium, fontSize = 18.sp)
 
             }
 
@@ -86,6 +87,6 @@ fun SongCard(vm: SongCardViewModel) {
 @Composable
 private fun SongListPreview() {
     StreamTuneTheme {
-        SongCard(SongCardViewModel(rememberNavController()))
+        SongCard(SongCardViewModel(rememberNavController(), Song("69", "夜に駆ける", "YOASOBI", "")))
     }
 }
