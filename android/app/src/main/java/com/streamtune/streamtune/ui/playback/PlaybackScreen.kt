@@ -75,7 +75,7 @@ fun PlaybackScreen(vm: PlaybackViewModel) {
                 value = sliderPosition,
                 onValueChange = { sliderPosition = it },
                 onValueChangeFinished = {
-                    vm.player.seekTo(sliderPosition.toLong())
+                    vm.player.seekTo(sliderPosition.toLong() * 1000L)
                 },
                 valueRange = 0f..songDuration,
                 modifier = Modifier.padding(40.dp, 0.dp)
