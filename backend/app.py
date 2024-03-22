@@ -17,35 +17,50 @@ ref = db.reference('/')
 def home():
     return "Demo root"
 
-@app.post("/convert")
+@app.post('/convert') 
 def convert():
+    try:
+        decoded_token = auth.verify_id_token(request.headers["Authorization"])
+    except:
+        return "Unauthorized", 403
+    uid = decoded_token['uid']
     data = request.get_json()
     songID = extract.video_id(data["url"])
     #check if songs exists
-    snapshot = ref.child('songs').order_by_key().equal_to(songID).get()
+    snapshot = ref.child('AllSongs').order_by_key().equal_to(songID).get()
     if len(snapshot) == 0:
-        fileName = urlToMp3(data["url"]) 
+        fileName, thumbnail_url, author = urlToMp3(data["url"]) 
         bucket = storage.bucket()
         blob = bucket.blob("mp3/" + songID + ".mp3")
         blob.upload_from_filename(fileName)
         blob.make_public()
+        os.remove(fileName)
         fileName = fileName.split("/")[-1]
-        users_ref = ref.child('songs')
+        users_ref = ref.child('AllSongs')
         users_ref.child(songID).set({
             "id": songID,
-            'name': fileName,
-            'url': blob.public_url
+            'name': fileName[:-4],
+            'url': blob.public_url,
+            'album_cover': thumbnail_url,
+            'artist': author
         })
+        url = blob.public_url
     else:
         fileName = snapshot[songID]["name"]
         url = snapshot[songID]['url']
-    decoded_token = auth.verify_id_token(request.headers["Authorization"])
-    uid = decoded_token['uid']
-    users_songs = ref.child('userSongs')
-    users_songs.child(uid).child(songID).set({
+        thumbnail_url = snapshot[songID]['album_cover']
+        author = snapshot[songID].get('artist', "")
+    users_songs = ref.child('UserPlaylists')
+    if len(users_songs.child(uid).child("Added Songs").get()) == 0:
+        users_songs.child(uid).child("Added Songs").set({
+            'name': "Added Songs"
+        })
+    users_songs.child(uid).child("Added Songs").child("songs").child(songID).set({
         "id": songID,
-        'name': fileName,
-        'url': url
+        'name': fileName[:-4],
+        'url': url,
+        'album_cover': thumbnail_url,
+        'artist': author
     })
     return "success", 200
 
@@ -57,7 +72,62 @@ def urlToMp3(url):
     base, ext = os.path.splitext(out_file)
     new_file = base + '.mp3'
     os.rename(out_file, new_file)
-    return new_file
+    return new_file, yt.thumbnail_url, yt.author
+
+@app.post('/createPlaylist') 
+def createPlaylist():
+    try:
+        decoded_token = auth.verify_id_token(request.headers["Authorization"])
+    except:
+        return "Unauthorized", 403
+    uid = decoded_token['uid']
+    data = request.get_json()
+    name = data["name"]
+    ref.child('UserPlaylists').child(uid).child(name).set({
+        'name': name
+    })
+    return "success", 200
+
+@app.post('/addToPlaylist') 
+def addToPlaylist():
+    try:
+        decoded_token = auth.verify_id_token(request.headers["Authorization"])
+    except:
+        return "Unauthorized", 403
+    uid = decoded_token['uid']
+    data = request.get_json()
+    playlistName = data["playlist_name"]
+    songID = data["song_id"]
+    songSnapshot = ref.child('UserPlaylists').child(uid).child("Added Songs").child("songs").child(songID).get()
+    if len(songSnapshot) == 0:
+        return "Song not found", 404
+    snapshot = ref.child('UserPlaylists').child(uid).child(playlistName).get()
+    if len(snapshot) == 0:
+        return "Playlist not found", 404
+    ref.child('UserPlaylists').child(uid).child(playlistName).child("songs").child(songID).set({
+        "id": songID,
+        'name': songSnapshot["name"],
+        'url': songSnapshot['url'],
+        'album_cover': songSnapshot['album_cover'],
+        'artist': songSnapshot.get('artist', "")
+    })
+    return "success", 200
+
+@app.get('/getPlaylists') 
+def getPlaylists():
+    try:
+        decoded_token = auth.verify_id_token(request.headers["Authorization"])
+    except:
+        return "Unauthorized", 403
+    uid = decoded_token['uid']
+    snapshot = ref.child('UserPlaylists').child(uid).get()
+    playlistResponse = []
+    for playlistName, playlist in snapshot.items():
+        playlistResponse.append({
+            'name': playlistName,
+            'songs': [playlist['songs'][key] for key in playlist['songs']] if 'songs' in playlist else []
+        })
+    return playlistResponse, 200
 
 if __name__ == "__main__":
     app.run(debug=True)
