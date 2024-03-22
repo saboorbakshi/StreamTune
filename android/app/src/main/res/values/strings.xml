@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">StreamTune</string>
+    <string name="register">REGISTER</string>
+    <string name="greeting">LOGIN</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="greeting_msg">No Account? Register!</string>
+    <string name="register_msg">Already Have an Account? Login!</string>
+    <string name="find_music">Find Your Music</string>
+    <string name="add_song">ADD</string>
+    <string name="search_youtube_msg">Paste YouTube link</string>
 </resources>

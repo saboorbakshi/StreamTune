@@ -22,11 +22,14 @@ import com.streamtune.streamtune.ui.register.Register
 import com.streamtune.streamtune.ui.register.RegisterViewModel
 import com.streamtune.streamtune.ui.songlist.SongList
 import com.streamtune.streamtune.ui.songlist.SongListViewModel
+import com.streamtune.streamtune.ui.splash.Splash
+import com.streamtune.streamtune.ui.splash.SplashViewModel
 import com.streamtune.streamtune.ui.theme.StreamTuneTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // configureFirebaseServices()
         setContent {
             StreamTuneTheme {
                 MainScreen()
@@ -45,11 +48,14 @@ private fun MainScreen() {
         val navController = rememberNavController()
 
         NavHost(navController = navController, startDestination = "greeting") {
-            composable("greeting") {
-                Greeting(GreetingViewModel(navController))
+            composable("splash") {
+                Splash(SplashViewModel(navController))
             }
             composable("register") {
                 Register(RegisterViewModel(navController))
+            }
+            composable("greeting") {
+                Greeting(GreetingViewModel(navController))
             }
             composable("songlist") {
                 SongList(SongListViewModel(navController))
@@ -64,5 +70,4 @@ private fun MainScreen() {
         }
 
     }
-
 }
