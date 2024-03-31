@@ -19,8 +19,8 @@ class StreamTune: Application() {
         }
 
         val allSongs: MutableList<Song> = mutableListOf(
-            Song("69", "夜に駆ける", "YOASOBI", "https://franktao.com/files/yorunikakeru.mp3"),
-            Song("70", "アイドル", "YOASOBI", "https://franktao.com/files/idol.mp3")
+            Song("69", "夜に駆ける", "YOASOBI", "https://franktao.com/files/yorunikakeru.mp3", "", 1),
+            Song("70", "アイドル", "YOASOBI", "https://franktao.com/files/idol.mp3", "", 1)
         )
 
         val VMStore: VMStore = VMStore()

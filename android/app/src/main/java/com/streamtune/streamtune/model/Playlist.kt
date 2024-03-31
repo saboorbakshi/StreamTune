@@ -9,5 +9,10 @@ data class Playlist(
     @PrimaryKey
     val name: String,
     @ColumnInfo(name = "songs")
-    val songs: List<Song>,
-)
+    val songs: List<Song>
+) {
+    override fun toString(): String {
+        val songsString = songs.joinToString(separator = "\n\t", prefix = "\n\t")
+        return "Playlist(name=$name, songs=$songsString)"
+    }
+}

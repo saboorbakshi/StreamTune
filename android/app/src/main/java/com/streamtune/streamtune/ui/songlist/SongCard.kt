@@ -87,6 +87,6 @@ fun SongCard(vm: SongCardViewModel) {
 @Composable
 private fun SongListPreview() {
     StreamTuneTheme {
-        SongCard(SongCardViewModel(rememberNavController(), Song("69", "夜に駆ける", "YOASOBI", "")))
+        SongCard(SongCardViewModel(rememberNavController(), Song("69", "夜に駆ける", "YOASOBI", "", "", 1)))
     }
 }

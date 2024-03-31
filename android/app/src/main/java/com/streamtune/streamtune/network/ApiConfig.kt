@@ -1,7 +1,12 @@
 package com.streamtune.streamtune.network
 
+import com.streamtune.streamtune.model.Playlist
+
 object ApiConfig {
+    var toast = ""
+    var songAdded = false
     var authToken = ""
+    var playlists = listOf<Playlist>()
 
     // Base URL
     const val BASE_URL = "https://streamtune.azurewebsites.net/"
@@ -14,7 +19,5 @@ object ApiConfig {
 
     // Timeout settings
     const val CONNECTION_TIMEOUT = 10000
-    const val WRITE_TIMEOUT = 10000
     const val READ_TIMEOUT = 10000
-
 }
