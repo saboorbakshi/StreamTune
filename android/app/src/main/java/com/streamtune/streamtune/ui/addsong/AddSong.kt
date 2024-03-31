@@ -46,7 +46,6 @@ fun AddSong(vm: AddSongViewModel) {
             ButtonComponent(label = stringResource(id = R.string.add_song), onClick = { vm.onAddButtonClick() })
 
             Spacer(Modifier.height(100.dp))
-
         }
 
     }

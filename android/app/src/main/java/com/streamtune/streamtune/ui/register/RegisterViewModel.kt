@@ -10,6 +10,8 @@ import com.streamtune.streamtune.ui.AppViewModel
 import kotlinx.coroutines.tasks.await
 
 class RegisterViewModel(private val navController: NavController) : AppViewModel() {
+    private val tag = "REGISTER"
+    private val mismatchMsg = "Passwords do not match"
 
     var email: String = ""
     var password: String = ""
@@ -22,20 +24,21 @@ class RegisterViewModel(private val navController: NavController) : AppViewModel
     val onRegButtonClick: () -> Unit = {
         launchCatching({
             if (password != confirmPassword) {
-                throw Exception("Passwords do not match")
+                ApiConfig.toast = mismatchMsg
+                throw Exception(mismatchMsg)
             }
             Firebase.auth.createUserWithEmailAndPassword(email, password).await()
-
             val idTokenResult = Firebase.auth.currentUser?.getIdToken(true)?.await()
             val idToken = idTokenResult?.token
 
-            // Check if the ID token was successfully retrieved
             if (!idToken.isNullOrEmpty()) {
                 ApiConfig.authToken = idToken
+                ApiCalls.getPlaylists()
                 navController.navigate("songlist")
             } else {
-                Log.e("REGISTER ERROR", "Could not retrieve ID token.")
+                ApiConfig.toast = "We're unable to register you right now. Please try again later."
+                Log.e(tag, "Could not retrieve ID token.")
             }
-        }, "REGISTER ERROR")
+        }, tag)
     }
 }
