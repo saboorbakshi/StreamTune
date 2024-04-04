@@ -3,6 +3,7 @@ package com.streamtune.streamtune.network
 import android.util.Log
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
+import com.streamtune.streamtune.StreamTune
 import com.streamtune.streamtune.model.Playlist
 import com.streamtune.streamtune.model.Song
 import kotlinx.coroutines.*
@@ -103,7 +104,7 @@ object ApiCalls {
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         Log.i("CREATE PLAYLIST SUCCESS", "Request successful with response code $responseCode")
                     } else {
-                        ApiConfig.toast = "Your playlist could not be created."
+                        ApiConfig.toast = "$name could not be created."
                         Log.e("CREATE PLAYLIST ERROR", "Request failed with response code $responseCode")
                     }
                 } catch (e: Exception) {
@@ -134,9 +135,9 @@ object ApiCalls {
                         // parse JSON received
                         val gson = Gson()
                         val playlistsType = object : TypeToken<List<Playlist>>() {}.type
-                        ApiConfig.playlists = gson.fromJson(response, playlistsType)
+                        StreamTune.playlists = gson.fromJson(response, playlistsType)
 
-                        // ApiConfig.playlists.forEach { playlist -> println(playlist) }
+                        // StreamTune.playlists.forEach { playlist -> println(playlist) }
 
                     } else {
                         ApiConfig.toast = "Your playlists could not be updated."
@@ -145,6 +146,74 @@ object ApiCalls {
                 } catch (e: Exception) {
                     ApiConfig.toast = "We're unable to update your playlists right now. Please try again later."
                     Log.e("GET PLAYLISTS ERROR", "Error during createPlaylist API call: ${e.message}")
+                } finally {
+                    disconnect()
+                }
+            }
+        }
+    }
+
+    fun deletePlaylist(name: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val url = URL(ApiConfig.BASE_URL + ApiConfig.DELETE_PLAYLIST_ENDPOINT)
+            (url.openConnection() as HttpURLConnection).apply {
+                requestMethod = "POST"
+                setRequestProperty("Content-Type", "application/json")
+                setRequestProperty("Authorization", ApiConfig.authToken)
+                connectTimeout = ApiConfig.CONNECTION_TIMEOUT
+                readTimeout = ApiConfig.READ_TIMEOUT
+                doOutput = true
+
+                val requestBody = "{\"name\": \"$name\"}"
+
+                try {
+                    OutputStreamWriter(outputStream).apply {
+                        write(requestBody)
+                        flush()
+                    }
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        Log.i("DELETE PLAYLIST SUCCESS", "Request successful with response code $responseCode")
+                    } else {
+                        ApiConfig.toast = "$name could not be deleted."
+                        Log.e("DELETE PLAYLIST ERROR", "Request failed with response code $responseCode")
+                    }
+                } catch (e: Exception) {
+                    ApiConfig.toast = "We're unable to delete playlists right now. Please try again later."
+                    Log.e("DELETE PLAYLIST ERROR", "Error during createPlaylist API call: ${e.message}")
+                } finally {
+                    disconnect()
+                }
+            }
+        }
+    }
+
+    fun deleteFromPlaylist(playlistName: String, songID: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val url = URL(ApiConfig.BASE_URL + ApiConfig.DELETE_FROM_PLAYLIST_ENDPOINT)
+            (url.openConnection() as HttpURLConnection).apply {
+                requestMethod = "POST"
+                setRequestProperty("Content-Type", "application/json")
+                setRequestProperty("Authorization", ApiConfig.authToken)
+                connectTimeout = ApiConfig.CONNECTION_TIMEOUT
+                readTimeout = ApiConfig.READ_TIMEOUT
+                doOutput = true
+
+                val requestBody = "{\"playlist_name\": \"$playlistName\", \"song_id\": \"$songID\"}"
+
+                try {
+                    OutputStreamWriter(outputStream).apply {
+                        write(requestBody)
+                        flush()
+                    }
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        Log.i("DELETE FROM PLAYLIST SUCCESS", "Request successful with response code $responseCode")
+                    } else {
+                        ApiConfig.toast = "Your song could not be deleted from $playlistName."
+                        Log.e("DELETE FROM PLAYLIST ERROR", "Request failed with response code $responseCode")
+                    }
+                } catch (e: Exception) {
+                    ApiConfig.toast = "We're unable to delete songs to playlists right now. Please try again later."
+                    Log.e("DELETE FROM PLAYLIST ERROR", "Error during createPlaylist API call: ${e.message}")
                 } finally {
                     disconnect()
                 }

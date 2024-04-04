@@ -6,7 +6,6 @@ object ApiConfig {
     var toast = ""
     var songAdded = false
     var authToken = ""
-    var playlists = listOf<Playlist>()
 
     // Base URL
     const val BASE_URL = "https://streamtune.azurewebsites.net/"
@@ -16,6 +15,8 @@ object ApiConfig {
     const val ADD_TO_PLAYLIST_ENDPOINT = "addToPlaylist"
     const val CREATE_PLAYLIST_ENDPOINT = "createPlaylist"
     const val GET_PLAYLISTS_ENDPOINT = "getPlaylists"
+    const val DELETE_FROM_PLAYLIST_ENDPOINT = "deleteFromPlaylist"
+    const val DELETE_PLAYLIST_ENDPOINT = "deletePlaylist"
 
     // Timeout settings
     const val CONNECTION_TIMEOUT = 10000
