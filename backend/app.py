@@ -6,6 +6,8 @@ from pytube import YouTube, extract
 import os 
 import youtube_dl
 
+
+
 app = Flask(__name__)
 
 cred = credentials.Certificate('credentials.json')
@@ -29,7 +31,9 @@ def convert():
     #check if songs exists
     snapshot = ref.child('AllSongs').order_by_key().equal_to(songID).get()
     if len(snapshot) == 0:
-        fileName, thumbnail_url, author = urlToMp3(data["url"]) 
+        fileName, thumbnail_url, author, duration = urlToMp3(data["url"])
+        thumbnail_url = thumbnail_url.split(".jpg")[0]
+        thumbnail_url = thumbnail_url + ".jpg" 
         bucket = storage.bucket()
         blob = bucket.blob("mp3/" + songID + ".mp3")
         blob.upload_from_filename(fileName)
@@ -42,7 +46,8 @@ def convert():
             'name': fileName[:-4],
             'url': blob.public_url,
             'album_cover': thumbnail_url,
-            'artist': author
+            'artist': author,
+            'duration': duration
         })
         url = blob.public_url
     else:
@@ -50,6 +55,7 @@ def convert():
         url = snapshot[songID]['url']
         thumbnail_url = snapshot[songID]['album_cover']
         author = snapshot[songID].get('artist', "")
+        duration = snapshot[songID]['duration']
     users_songs = ref.child('UserPlaylists')
     if len(users_songs.order_by_key().equal_to(uid).get()) == 0:
         users_songs.child(uid).child("Added Songs").set({
@@ -60,7 +66,8 @@ def convert():
         'name': fileName[:-4],
         'url': url,
         'album_cover': thumbnail_url,
-        'artist': author
+        'artist': author,
+        'duration': duration
     })
     return "success", 200
 
@@ -72,8 +79,8 @@ def urlToMp3(url):
     base, ext = os.path.splitext(out_file)
     new_file = base + '.mp3'
     os.rename(out_file, new_file)
-    return new_file, yt.thumbnail_url, yt.author
-
+    return new_file, yt.thumbnail_url, yt.author, yt.length
+    
 @app.post('/createPlaylist') 
 def createPlaylist():
     try:
@@ -103,20 +110,47 @@ def addToPlaylist():
     data = request.get_json()
     playlistName = data["playlist_name"]
     songID = data["song_id"]
-    songSnapshot = ref.child('UserPlaylists').child(uid).child("Added Songs").child("songs").child(songID).get()
-    if len(songSnapshot) == 0:
+    songSnapshot = ref.child('AllSongs').child(songID).get()
+    if songSnapshot == None:
         return "Song not found", 404
+    snapshot = ref.child('UserPlaylists').child(uid).get()
+    if snapshot == None:
+        return "Playlist not found", 404
     snapshot = ref.child('UserPlaylists').child(uid).child(playlistName).get()
-    if len(snapshot) == 0:
+    if snapshot == None:
         return "Playlist not found", 404
     ref.child('UserPlaylists').child(uid).child(playlistName).child("songs").child(songID).set({
         "id": songID,
         'name': songSnapshot["name"],
         'url': songSnapshot['url'],
         'album_cover': songSnapshot['album_cover'],
-        'artist': songSnapshot.get('artist', "")
+        'artist': songSnapshot.get('artist', ""),
+        'duration': songSnapshot['duration']
     })
     return "success", 200
+
+@app.post('/deleteFromPlaylist') 
+def deleteFromPlaylist():
+    try:
+        decoded_token = auth.verify_id_token(request.headers["Authorization"])
+    except:
+        return "Unauthorized", 403
+    uid = decoded_token['uid']
+    data = request.get_json()
+    playlistName = data["playlist_name"]
+    songID = data["song_id"]
+    songSnapshot = ref.child('AllSongs').child(songID).get()
+    if songSnapshot == None:
+        return "Song not found", 404
+    snapshot = ref.child('UserPlaylists').child(uid).get()
+    if snapshot == None:
+        return "Playlist not found", 404
+    snapshot = ref.child('UserPlaylists').child(uid).child(playlistName).get()
+    if snapshot == None:
+        return "Playlist not found", 404
+    ref.child('UserPlaylists').child(uid).child(playlistName).child("songs").child(songID).delete()
+    return "success", 200
+
 
 @app.get('/getPlaylists') 
 def getPlaylists():
@@ -127,7 +161,9 @@ def getPlaylists():
     uid = decoded_token['uid']
     users_songs = ref.child('UserPlaylists')
     if len(users_songs.order_by_key().equal_to(uid).get()) == 0:
-        return [], 200
+        users_songs.child(uid).child("Added Songs").set({
+            'name': "Added Songs"
+        })
     snapshot = ref.child('UserPlaylists').child(uid).get()
     playlistResponse = []
     for playlistName, playlist in snapshot.items():
@@ -137,5 +173,25 @@ def getPlaylists():
         })
     return playlistResponse, 200
 
+@app.post('/deletePlaylist') 
+def deletePlaylist():
+    try:
+        decoded_token = auth.verify_id_token(request.headers["Authorization"])
+    except:
+        return "Unauthorized", 403
+    uid = decoded_token['uid']
+    data = request.get_json()
+    name = data["name"]
+    snapshot = ref.child('UserPlaylists').child(uid).get()
+    if snapshot == None:
+        return "Playlist not found", 404
+    snapshot = ref.child('UserPlaylists').child(uid).child(name).get()
+    if snapshot == None:
+        return "Playlist not found", 404
+    ref.child('UserPlaylists').child(uid).child(name).delete()
+    return "success", 200
+
 if __name__ == "__main__":
     app.run(debug=True)
+
+    
