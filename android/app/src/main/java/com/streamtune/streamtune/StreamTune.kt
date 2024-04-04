@@ -2,6 +2,7 @@ package com.streamtune.streamtune
 
 import android.app.Application
 import android.content.Context
+import com.streamtune.streamtune.model.Playlist
 import com.streamtune.streamtune.model.Song
 
 class StreamTune: Application() {
@@ -11,6 +12,8 @@ class StreamTune: Application() {
     }
 
     companion object {
+
+        var playlists = listOf<Playlist>()
 
         private var instance: StreamTune? = null
 
