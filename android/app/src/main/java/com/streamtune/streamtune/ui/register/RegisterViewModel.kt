@@ -34,7 +34,7 @@ class RegisterViewModel(private val navController: NavController) : AppViewModel
             if (!idToken.isNullOrEmpty()) {
                 ApiConfig.authToken = idToken
                 ApiCalls.getPlaylists()
-                navController.navigate("songlist")
+                navController.navigate("playlistlist")
             } else {
                 ApiConfig.toast = "We're unable to register you right now. Please try again later."
                 Log.e(tag, "Could not retrieve ID token.")

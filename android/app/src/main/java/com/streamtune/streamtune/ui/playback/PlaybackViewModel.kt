@@ -1,31 +1,51 @@
 package com.streamtune.streamtune.ui.playback
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import com.streamtune.streamtune.StreamTune
+import com.streamtune.streamtune.model.PlayableList
 import com.streamtune.streamtune.model.Song
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.math.max
 
 @SuppressLint("StaticFieldLeak")
-class PlaybackViewModel(val song: Song): ViewModel() {
+class PlaybackViewModel(song: Song): ViewModel() {
 
     private val context = StreamTune.applicationContext()
     val player: ExoPlayer = ExoPlayer.Builder(context).build()
 
-    val songDuration: MutableStateFlow<Float> = MutableStateFlow(max(player.duration.toFloat(), 240f))
+    val nowPlaying: MutableStateFlow<Song> = MutableStateFlow(song)
+    var songDuration: MutableStateFlow<Float> = MutableStateFlow(max(song.duration.toFloat(), 0f))
+
+    val playableList: PlayableList = PlayableList(StreamTune.allSongs)
 
     init {
+
+        playableList.history.add(playableList.songs.indexOf(song))
+        playSong(song)
+
+    }
+
+    private fun playSong(song: Song) {
+        player.clearMediaItems()
 
         val mediaItem = MediaItem.fromUri(song.url)
         player.addMediaItem(mediaItem)
         player.prepare()
 
-        // songDuration.value = max(player.duration.toFloat(), 240f)
+        songDuration.value = max(song.duration.toFloat(), 0f)
+    }
 
+    fun nextSong() {
+        nowPlaying.value = playableList.nextSong()
+        playSong(nowPlaying.value)
+    }
+
+    fun prevSong() {
+        nowPlaying.value = playableList.lastSong()
+        playSong(nowPlaying.value)
     }
 
     fun secondsToTimestamp(seconds: Float): String {

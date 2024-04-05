@@ -5,7 +5,6 @@ import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 import com.streamtune.streamtune.StreamTune
 import com.streamtune.streamtune.model.Playlist
-import com.streamtune.streamtune.model.Song
 import kotlinx.coroutines.*
 import java.io.*
 import java.net.HttpURLConnection
@@ -135,7 +134,7 @@ object ApiCalls {
                         // parse JSON received
                         val gson = Gson()
                         val playlistsType = object : TypeToken<List<Playlist>>() {}.type
-                        StreamTune.playlists = gson.fromJson(response, playlistsType)
+                        StreamTune.allPlaylists = gson.fromJson(response, playlistsType)
 
                         // StreamTune.playlists.forEach { playlist -> println(playlist) }
 
