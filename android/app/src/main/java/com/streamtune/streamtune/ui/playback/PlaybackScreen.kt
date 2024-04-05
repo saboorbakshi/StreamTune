@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -58,12 +59,19 @@ fun PlaybackScreen(vm: PlaybackViewModel) {
 
             Spacer(Modifier.height(10.dp))
 
-            Text(text = nowPlaying.title, fontWeight = FontWeight.Bold, fontSize = 36.sp)
+            Text(text = nowPlaying.title, fontWeight = FontWeight.Medium, fontSize = 36.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(horizontal = 40.dp)
+            )
 
             Spacer(Modifier.height(10.dp))
 
-            Text(nowPlaying.artist, fontWeight = FontWeight.Medium, fontSize = 18.sp)
-
+            Text(nowPlaying.artist, fontWeight = FontWeight.Medium, fontSize = 22.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(horizontal = 40.dp)
+            )
 
             Spacer(Modifier.height(25.dp))
 

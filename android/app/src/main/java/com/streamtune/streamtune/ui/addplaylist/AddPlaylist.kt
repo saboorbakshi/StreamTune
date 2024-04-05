@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.streamtune.streamtune.R
 import com.streamtune.streamtune.ui.components.ButtonComponent
-import com.streamtune.streamtune.ui.components.SearchTextFieldComponent
+import com.streamtune.streamtune.ui.components.IconTextFieldComponent
 import com.streamtune.streamtune.ui.theme.StreamTuneTheme
 
 @Composable
@@ -35,11 +35,15 @@ fun AddPlaylist(vm: AddPlaylistViewModel) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
 
-            Text(text = stringResource(id = R.string.create_playlist_title), color = Color.Gray, fontSize = 24.sp)
+            Text(text = stringResource(id = R.string.create_playlist_title), color = Color.Gray, fontSize = 36.sp)
 
             Spacer(Modifier.height(20.dp))
 
-            SearchTextFieldComponent(label = stringResource(id = R.string.create_playlist_msg), onValueChange = { vm.name = it })
+            IconTextFieldComponent(
+                label = stringResource(id = R.string.create_playlist_msg),
+                onValueChange = { vm.name = it },
+                R.drawable.playlist_add
+            )
 
             Spacer(Modifier.height(20.dp))
 
