@@ -18,8 +18,4 @@ class SongCardViewModel(navController: NavController, val song: Song) : ViewMode
         // ApiCalls.deleteFromPlaylist(playlistName = "?", song.id)
     }
 
-//    val deleteSongClick: () -> Unit = {
-//        ApiCalls.deleteFromPlaylist(playlistName = "?", song.id)
-//    }
-
 }

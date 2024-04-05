@@ -16,15 +16,8 @@ class PlaylistCardVM(val navController: NavController, val playlist: Playlist): 
 
     val onClick: () -> Unit = {
         StreamTune.allSongs = playlist.songs.toMutableList()
-
         StreamTune.VMStore.songListVM = SongListViewModel(navController, playlist.name)
         navController.navigate("songlist")
-    }
-
-    val deletePlaylistClick: () -> Unit = {
-        ApiCalls.deletePlaylist(playlist.name)
-        ApiCalls.getPlaylists()
-        navController.navigate("playlistlist")
     }
 
     val deletePlaylistClick: () -> Unit = {

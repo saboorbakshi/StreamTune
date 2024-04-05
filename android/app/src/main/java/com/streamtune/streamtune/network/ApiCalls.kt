@@ -28,14 +28,14 @@ object ApiCalls {
                     OutputStreamWriter(outputStream).use { it.write(requestBody) }
 
                     // Construct and log the cURL command
-                    val curlCommand = """
-                    curl -X POST \
-                    '${url}' \
-                    -H 'Content-Type: application/json' \
-                    -H 'Authorization: ${getRequestProperty("Authorization")}' \
-                    -d '$requestBody'
-                    """.trimIndent()
-                    Log.i("CURL COMMAND", curlCommand)
+//                    val curlCommand = """
+//                    curl -X POST \
+//                    '${url}' \
+//                    -H 'Content-Type: application/json' \
+//                    -H 'Authorization: ${getRequestProperty("Authorization")}' \
+//                    -d '$requestBody'
+//                    """.trimIndent()
+//                    Log.i("CURL COMMAND", curlCommand)
 
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         songID = inputStream.bufferedReader().use(BufferedReader::readText)
@@ -57,21 +57,12 @@ object ApiCalls {
         return withContext(Dispatchers.IO) {
             val url = URL(ApiConfig.BASE_URL + ApiConfig.ADD_TO_PLAYLIST_ENDPOINT)
             (url.openConnection() as HttpURLConnection).apply {
-                requestMethod = "POST"
-                setRequestProperty("Content-Type", "application/json")
-                setRequestProperty("Authorization", ApiConfig.authToken)
-                connectTimeout = 10000;
-                readTimeout = 10000;
-                doOutput = true
-
-                val requestBody = "{\"playlist_name\": \"$playlistName\", \"song_id\": \"$songID\"}"
-
                 try {
                     requestMethod = "POST"
                     setRequestProperty("Content-Type", "application/json")
                     setRequestProperty("Authorization", ApiConfig.authToken)
-                    connectTimeout = 10000
-                    readTimeout = 10000
+                    connectTimeout = ApiConfig.CONNECTION_TIMEOUT
+                    readTimeout = ApiConfig.READ_TIMEOUT
                     doOutput = true
 
                     val requestBody = "{\"playlist_name\": \"$playlistName\", \"song_id\": \"$songID\"}"
@@ -111,8 +102,6 @@ object ApiCalls {
                         flush()
                     }
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        ApiConfig.playlistCreated = true
-                        ApiConfig.toast = "$name was successfully created."
                         Log.i("CREATE PLAYLIST SUCCESS", "Request successful with response code $responseCode")
                     } else {
                         Log.e("CREATE PLAYLIST ERROR", "Request failed with response code $responseCode")

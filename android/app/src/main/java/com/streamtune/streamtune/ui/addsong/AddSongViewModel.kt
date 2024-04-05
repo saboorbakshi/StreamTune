@@ -13,7 +13,6 @@ import kotlinx.coroutines.withContext
 
 class AddSongViewModel(navController: NavController, var playlistName: String): ViewModel() {
     var link = ""
-    private val mainPlaylistName = "Added Songs"
 
     val onAddButtonClick: () -> Unit = {
         viewModelScope.launch {
@@ -27,11 +26,5 @@ class AddSongViewModel(navController: NavController, var playlistName: String): 
                 navController.navigate("songlist")
             }
         }
-        Log.i("SONG ID", songID)
-        if (songID != "") {
-            ApiCalls.addToPlaylist(playlistName = playlistName, songID = songID)
-            ApiCalls.getPlaylists()               // updates StreamTune.allPlaylists
-        }
-        navController.navigate("songlist")
     }
 }
