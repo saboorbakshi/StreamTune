@@ -19,7 +19,10 @@ class StreamTune: Application() {
             return instance!!.applicationContext
         }
 
-        var allSongs: MutableList<Song> = mutableListOf()
+        var allSongs: MutableList<Song> = mutableListOf(
+            Song("69", "夜に駆ける", "YOASOBI", "https://franktao.com/files/yorunikakeru.mp3", "helloCover", 120),
+            Song("70", "アイドル", "YOASOBI", "https://franktao.com/files/idol.mp3", "blah", 120)
+        )
 
         var allPlaylists: MutableList<Playlist> = mutableListOf()
 

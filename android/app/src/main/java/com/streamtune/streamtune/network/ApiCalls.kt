@@ -11,45 +11,50 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 object ApiCalls {
-    fun addSong(youtubeURL: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+    suspend fun addSong(youtubeURL: String): String? {
+        return withContext(Dispatchers.IO) {
             val url = URL(ApiConfig.BASE_URL + ApiConfig.ADD_SONG_ENDPOINT)
+            var songID: String? = null
             (url.openConnection() as HttpURLConnection).apply {
-                requestMethod = "POST"
-                setRequestProperty("Content-Type", "application/json")
-                setRequestProperty("Authorization", ApiConfig.authToken)
-                connectTimeout = ApiConfig.CONNECTION_TIMEOUT
-                readTimeout = ApiConfig.READ_TIMEOUT
-                doOutput = true
-
-                val requestBody = "{\"url\": \"$youtubeURL\"}"
-
                 try {
-                    OutputStreamWriter(outputStream).apply {
-                        write(requestBody)
-                        flush()
-                    }
+                    requestMethod = "POST"
+                    setRequestProperty("Content-Type", "application/json")
+                    setRequestProperty("Authorization", ApiConfig.authToken)
+                    connectTimeout = ApiConfig.CONNECTION_TIMEOUT * 2
+                    readTimeout = ApiConfig.READ_TIMEOUT * 2
+                    doOutput = true
+
+                    val requestBody = "{\"url\": \"$youtubeURL\"}"
+                    OutputStreamWriter(outputStream).use { it.write(requestBody) }
+
+                    // Construct and log the cURL command
+                    val curlCommand = """
+                    curl -X POST \
+                    '${url}' \
+                    -H 'Content-Type: application/json' \
+                    -H 'Authorization: ${getRequestProperty("Authorization")}' \
+                    -d '$requestBody'
+                    """.trimIndent()
+                    Log.i("CURL COMMAND", curlCommand)
+
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        ApiConfig.songAdded = true
-                        ApiConfig.toast = "Your song was successfully added."
-                        Log.i("ADD SONG SUCCESS", "Request successful with response code $responseCode")
+                        songID = inputStream.bufferedReader().use(BufferedReader::readText)
+                        Log.i("ADD SONG SUCCESS", "Request successful with response code $responseCode, songID: $songID.")
                     } else {
-                        ApiConfig.songAdded = false
-                        ApiConfig.toast = "Your song could not be added."
                         Log.e("ADD SONG ERROR", "Request failed with response code $responseCode")
                     }
                 } catch (e: Exception) {
-                    ApiConfig.toast = "We're unable to add songs right now. Please try again later."
-                    Log.e("ADD SONG ERROR", "Error during addSong API call: ${e.message}: $responseCode")
+                    Log.e("ADD SONG ERROR", "Error during addSong API call: ${e.message}")
                 } finally {
                     disconnect()
                 }
             }
+            songID
         }
     }
 
-    fun addToPlaylist(playlistName: String, songID: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+    suspend fun addToPlaylist(playlistName: String, songID: String) {
+        return withContext(Dispatchers.IO) {
             val url = URL(ApiConfig.BASE_URL + ApiConfig.ADD_TO_PLAYLIST_ENDPOINT)
             (url.openConnection() as HttpURLConnection).apply {
                 requestMethod = "POST"
@@ -62,19 +67,25 @@ object ApiCalls {
                 val requestBody = "{\"playlist_name\": \"$playlistName\", \"song_id\": \"$songID\"}"
 
                 try {
+                    requestMethod = "POST"
+                    setRequestProperty("Content-Type", "application/json")
+                    setRequestProperty("Authorization", ApiConfig.authToken)
+                    connectTimeout = 10000
+                    readTimeout = 10000
+                    doOutput = true
+
+                    val requestBody = "{\"playlist_name\": \"$playlistName\", \"song_id\": \"$songID\"}"
                     OutputStreamWriter(outputStream).apply {
                         write(requestBody)
                         flush()
                     }
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        Log.i("ADD2PLAYLIST SUCCESS", "Request successful with response code $responseCode")
+                        Log.i("ADD2PLAYLIST SUCCESS", "Request successful with response code $responseCode, Added to: $playlistName.")
                     } else {
-                        ApiConfig.toast = "Your song could not be added to $playlistName."
-                        Log.e("ADD2PLAYLIST ERROR", "Request failed with response code $responseCode")
+                        Log.e("ADD2PLAYLIST ERROR", "Request failed with response code $responseCode, Added to: $playlistName.")
                     }
                 } catch (e: Exception) {
-                    ApiConfig.toast = "We're unable to add songs to playlists right now. Please try again later."
-                    Log.e("ADD2PLAYLIST ERROR", "Error during createPlaylist API call: ${e.message}")
+                    Log.e("ADD2PLAYLIST ERROR", "Error during addToPlaylist API call: ${e.message}")
                 } finally {
                     disconnect()
                 }
@@ -82,20 +93,19 @@ object ApiCalls {
         }
     }
 
-    fun createPlaylist(name: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+    suspend fun createPlaylist(name: String) {
+        return withContext(Dispatchers.IO) {
             val url = URL(ApiConfig.BASE_URL + ApiConfig.CREATE_PLAYLIST_ENDPOINT)
             (url.openConnection() as HttpURLConnection).apply {
-                requestMethod = "POST"
-                setRequestProperty("Content-Type", "application/json")
-                setRequestProperty("Authorization", ApiConfig.authToken)
-                connectTimeout = ApiConfig.CONNECTION_TIMEOUT
-                readTimeout = ApiConfig.READ_TIMEOUT
-                doOutput = true
-
-                val requestBody = "{\"name\": \"$name\"}"
-
                 try {
+                    requestMethod = "POST"
+                    setRequestProperty("Content-Type", "application/json")
+                    setRequestProperty("Authorization", ApiConfig.authToken)
+                    connectTimeout = ApiConfig.CONNECTION_TIMEOUT
+                    readTimeout = ApiConfig.READ_TIMEOUT
+                    doOutput = true
+
+                    val requestBody = "{\"name\": \"$name\"}"
                     OutputStreamWriter(outputStream).apply {
                         write(requestBody)
                         flush()
@@ -105,12 +115,9 @@ object ApiCalls {
                         ApiConfig.toast = "$name was successfully created."
                         Log.i("CREATE PLAYLIST SUCCESS", "Request successful with response code $responseCode")
                     } else {
-                        ApiConfig.playlistCreated = false
-                        ApiConfig.toast = "$name could not be created."
                         Log.e("CREATE PLAYLIST ERROR", "Request failed with response code $responseCode")
                     }
                 } catch (e: Exception) {
-                    ApiConfig.toast = "We're unable to create playlists right now. Please try again later."
                     Log.e("CREATE PLAYLIST ERROR", "Error during createPlaylist API call: ${e.message}")
                 } finally {
                     disconnect()
@@ -119,17 +126,17 @@ object ApiCalls {
         }
     }
 
-    fun getPlaylists() {
-        CoroutineScope(Dispatchers.IO).launch {
+    suspend fun getPlaylists() {
+        return withContext(Dispatchers.IO) {
             val url = URL(ApiConfig.BASE_URL + ApiConfig.GET_PLAYLISTS_ENDPOINT)
             (url.openConnection() as HttpURLConnection).apply {
-                requestMethod = "GET"
-                setRequestProperty("Content-Type", "application/json")
-                setRequestProperty("Authorization", ApiConfig.authToken)
-                connectTimeout = ApiConfig.CONNECTION_TIMEOUT
-                readTimeout = ApiConfig.READ_TIMEOUT
-
                 try {
+                    requestMethod = "GET"
+                    setRequestProperty("Content-Type", "application/json")
+                    setRequestProperty("Authorization", ApiConfig.authToken)
+                    connectTimeout = ApiConfig.CONNECTION_TIMEOUT
+                    readTimeout = ApiConfig.READ_TIMEOUT
+
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         val response = BufferedReader(InputStreamReader(inputStream)).use { it.readText() }
                         Log.i("GET PLAYLISTS SUCCESS", "Request successful with response code $responseCode")
@@ -138,15 +145,11 @@ object ApiCalls {
                         val gson = Gson()
                         val playlistsType = object : TypeToken<List<Playlist>>() {}.type
                         StreamTune.allPlaylists = gson.fromJson(response, playlistsType)
-                        // StreamTune.allPlaylists.forEach { playlist -> println(playlist) }
-
                     } else {
-                        ApiConfig.toast = "Your playlists could not be updated."
                         Log.e("GET PLAYLISTS ERROR", "Request failed with response code $responseCode")
                     }
                 } catch (e: Exception) {
-                    ApiConfig.toast = "We're unable to update your playlists right now. Please try again later."
-                    Log.e("GET PLAYLISTS ERROR", "Error during createPlaylist API call: ${e.message}")
+                    Log.e("GET PLAYLISTS ERROR", "Error during getPlaylists API call: ${e.message}")
                 } finally {
                     disconnect()
                 }
@@ -154,20 +157,19 @@ object ApiCalls {
         }
     }
 
-    fun deletePlaylist(name: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+    suspend fun deletePlaylist(name: String) {
+        return withContext(Dispatchers.IO) {
             val url = URL(ApiConfig.BASE_URL + ApiConfig.DELETE_PLAYLIST_ENDPOINT)
             (url.openConnection() as HttpURLConnection).apply {
-                requestMethod = "POST"
-                setRequestProperty("Content-Type", "application/json")
-                setRequestProperty("Authorization", ApiConfig.authToken)
-                connectTimeout = ApiConfig.CONNECTION_TIMEOUT
-                readTimeout = ApiConfig.READ_TIMEOUT
-                doOutput = true
-
-                val requestBody = "{\"name\": \"$name\"}"
-
                 try {
+                    requestMethod = "POST"
+                    setRequestProperty("Content-Type", "application/json")
+                    setRequestProperty("Authorization", ApiConfig.authToken)
+                    connectTimeout = ApiConfig.CONNECTION_TIMEOUT
+                    readTimeout = ApiConfig.READ_TIMEOUT
+                    doOutput = true
+
+                    val requestBody = "{\"name\": \"$name\"}"
                     OutputStreamWriter(outputStream).apply {
                         write(requestBody)
                         flush()
@@ -175,12 +177,10 @@ object ApiCalls {
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         Log.i("DELETE PLAYLIST SUCCESS", "Request successful with response code $responseCode")
                     } else {
-                        ApiConfig.toast = "$name could not be deleted."
                         Log.e("DELETE PLAYLIST ERROR", "Request failed with response code $responseCode")
                     }
                 } catch (e: Exception) {
-                    ApiConfig.toast = "We're unable to delete playlists right now. Please try again later."
-                    Log.e("DELETE PLAYLIST ERROR", "Error during createPlaylist API call: ${e.message}")
+                    Log.e("DELETE PLAYLIST ERROR", "Error during deletePlaylist API call: ${e.message}")
                 } finally {
                     disconnect()
                 }
@@ -188,20 +188,19 @@ object ApiCalls {
         }
     }
 
-    fun deleteFromPlaylist(playlistName: String, songID: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+    suspend fun deleteFromPlaylist(playlistName: String, songID: String) {
+        return withContext(Dispatchers.IO) {
             val url = URL(ApiConfig.BASE_URL + ApiConfig.DELETE_FROM_PLAYLIST_ENDPOINT)
             (url.openConnection() as HttpURLConnection).apply {
-                requestMethod = "POST"
-                setRequestProperty("Content-Type", "application/json")
-                setRequestProperty("Authorization", ApiConfig.authToken)
-                connectTimeout = ApiConfig.CONNECTION_TIMEOUT
-                readTimeout = ApiConfig.READ_TIMEOUT
-                doOutput = true
-
-                val requestBody = "{\"playlist_name\": \"$playlistName\", \"song_id\": \"$songID\"}"
-
                 try {
+                    requestMethod = "POST"
+                    setRequestProperty("Content-Type", "application/json")
+                    setRequestProperty("Authorization", ApiConfig.authToken)
+                    connectTimeout = ApiConfig.CONNECTION_TIMEOUT
+                    readTimeout = ApiConfig.READ_TIMEOUT
+                    doOutput = true
+
+                    val requestBody = "{\"playlist_name\": \"$playlistName\", \"song_id\": \"$songID\"}"
                     OutputStreamWriter(outputStream).apply {
                         write(requestBody)
                         flush()
@@ -209,12 +208,10 @@ object ApiCalls {
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         Log.i("DELETE FROM PLAYLIST SUCCESS", "Request successful with response code $responseCode")
                     } else {
-                        ApiConfig.toast = "Your song could not be deleted from $playlistName."
                         Log.e("DELETE FROM PLAYLIST ERROR", "Request failed with response code $responseCode")
                     }
                 } catch (e: Exception) {
-                    ApiConfig.toast = "We're unable to delete songs to playlists right now. Please try again later."
-                    Log.e("DELETE FROM PLAYLIST ERROR", "Error during createPlaylist API call: ${e.message}")
+                    Log.e("DELETE FROM PLAYLIST ERROR", "Error during deleteFromPlaylist API call: ${e.message}")
                 } finally {
                     disconnect()
                 }

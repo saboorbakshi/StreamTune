@@ -15,7 +15,7 @@ class PlayableList(val songs: List<Song>) {
 
     fun nextSong(): Song {
 
-        if(repeat) {}
+        if (repeat) {}
         else if(shuffle) {
             history.add(playing)
             playing = Random.nextInt(0, songs.size)
@@ -32,7 +32,7 @@ class PlayableList(val songs: List<Song>) {
 
     fun lastSong(): Song {
 
-        if(repeat) {}
+        if (repeat) {}
         else if(history.isNotEmpty()) {
             playing = history.removeLast()
         } else {

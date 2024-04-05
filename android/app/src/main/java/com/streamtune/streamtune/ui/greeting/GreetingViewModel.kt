@@ -30,7 +30,6 @@ class GreetingViewModel(private val navController: NavController) : AppViewModel
                 ApiCalls.getPlaylists()
                 navController.navigate("playlistlist")
             } else {
-                ApiConfig.toast = "We're unable to log you in right now. Please try again later."
                 Log.e(tag, "Could not retrieve token ID.")
             }
         }, tag)

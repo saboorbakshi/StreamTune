@@ -86,6 +86,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.49")
     kapt("com.google.dagger:hilt-compiler:2.44")
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("androidx.activity:activity-compose:1.8.2")
 
     // API
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
@@ -97,7 +98,7 @@ dependencies {
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("io.mockk:mockk:1.13.10")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("androidx.compose.ui:ui-test-junit4:1.6.5")
     androidTestImplementation("io.mockk:mockk-android:1.13.10")
     androidTestImplementation("androidx.arch.core:core-testing:2.2.0")

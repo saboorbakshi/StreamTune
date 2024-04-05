@@ -91,16 +91,8 @@ fun PasswordTextFieldComponent(label: String, onValueChange: (String) -> Unit) {
 
 @Composable
 fun ButtonComponent(label: String, onClick: () -> Unit) {
-    val context = LocalContext.current
     Button(
-        onClick = {
-            onClick()
-            val text = ApiConfig.toast
-            if (text.isNotEmpty()) {
-                Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
-                ApiConfig.toast = ""
-            }
-        },
+        onClick = { onClick() },
         modifier = Modifier.width(225.dp).height(45.dp)
     ) {
         Text(label)

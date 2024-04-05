@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -23,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,34 +44,48 @@ fun PlaylistCard(vm: PlaylistCardVM) {
         onClick = vm.onClick
     )) {
 
-        Row(verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()) {
-
-            Column(verticalArrangement = Arrangement.Center, modifier = Modifier.padding(20.dp)) {
-
-                Text(text = vm.playlist.name, fontWeight = FontWeight.SemiBold, fontSize = 24.sp)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp)
+        ) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = 10.dp)
+            ) {
+                Text(
+                    text = vm.playlist.name,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 24.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
 
                 Spacer(Modifier.height(5.dp))
 
                 val songCount = vm.playlist.songs.size
-                Text("$songCount Song${if(songCount != 1) "s" else ""}", fontWeight = FontWeight.Medium, fontSize = 18.sp)
-
+                Text(
+                    "$songCount Song${if (songCount != 1) "s" else ""}",
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 18.sp
+                )
             }
 
-            Spacer(Modifier.weight(1f))
+            Spacer(Modifier.width(10.dp))
 
-            Image(painter = painterResource(id = R.drawable.more), contentDescription = "more",
+            Image(
+                painter = painterResource(id = R.drawable.delete_forever),
+                contentDescription = "Delete Playlist",
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.tertiary),
                 modifier = Modifier
-                    .size(75.dp)
-                    .padding(15.dp)
+                    .size(40.dp)
                     .clickable { vm.deletePlaylistClick() }
             )
-
         }
-
     }
-
 }
 
 
