@@ -1,6 +1,5 @@
 package com.streamtune.streamtune.ui.playback
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -27,11 +26,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.streamtune.streamtune.R
 import com.streamtune.streamtune.StreamTune
 import com.streamtune.streamtune.ui.theme.StreamTuneTheme
@@ -42,10 +44,12 @@ fun PlaybackScreen(vm: PlaybackViewModel) {
 
     Surface(Modifier.fillMaxSize()) {
 
+        val nowPlaying by vm.nowPlaying.collectAsState()
+
         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
 
-            Image(
-                painter = painterResource(id = R.drawable.yoasobi_the_book),
+            AsyncImage(
+                model = nowPlaying.albumCover,
                 contentDescription = "AlbumArt",
                 modifier = Modifier
                     .fillMaxWidth(0.8f)
@@ -54,11 +58,11 @@ fun PlaybackScreen(vm: PlaybackViewModel) {
 
             Spacer(Modifier.height(10.dp))
 
-            Text(text = vm.song.title, fontWeight = FontWeight.Bold, fontSize = 36.sp)
+            Text(text = nowPlaying.title, fontWeight = FontWeight.Bold, fontSize = 36.sp)
 
             Spacer(Modifier.height(10.dp))
 
-            Text(vm.song.artist, fontWeight = FontWeight.Medium, fontSize = 18.sp)
+            Text(nowPlaying.artist, fontWeight = FontWeight.Medium, fontSize = 18.sp)
 
 
             Spacer(Modifier.height(25.dp))
@@ -81,18 +85,35 @@ fun PlaybackScreen(vm: PlaybackViewModel) {
                 modifier = Modifier.padding(40.dp, 0.dp)
             )
 
-            Row(Modifier.padding(40.dp, 0.dp).fillMaxWidth()) {
+            Row(
+                Modifier
+                    .padding(40.dp, 0.dp)
+                    .fillMaxWidth()) {
                 Text(text = vm.secondsToTimestamp(sliderPosition), fontWeight = FontWeight.Medium)
                 Spacer(Modifier.weight(1f))
                 Text(text = vm.secondsToTimestamp(songDuration), fontWeight = FontWeight.Medium)
             }
+
+            var shuffleColor by remember { mutableStateOf(Color.LightGray) }
+            var repeatColor by remember { mutableStateOf(Color.LightGray) }
 
             Row(verticalAlignment = Alignment.CenterVertically) {
 
                 Image(
                     painter = painterResource(id = R.drawable.shuffle),
                     contentDescription = "Shuffle",
-                    modifier = Modifier.size(30.dp)
+                    colorFilter = ColorFilter.tint(shuffleColor),
+                    modifier = Modifier.size(30.dp).clickable {
+                        if(vm.playableList.shuffle) {
+                            vm.playableList.shuffle = false
+                            shuffleColor = Color.LightGray
+                        } else {
+                            vm.playableList.shuffle = true
+                            vm.playableList.repeat = false
+                            shuffleColor = Color.Black
+                            repeatColor = Color.LightGray
+                        }
+                    }
                 )
 
                 Spacer(Modifier.width(10.dp))
@@ -100,7 +121,13 @@ fun PlaybackScreen(vm: PlaybackViewModel) {
                 Image(
                     painter = painterResource(id = R.drawable.skip_prev),
                     contentDescription = "Skip Previous",
-                    modifier = Modifier.size(80.dp)
+                    modifier = Modifier.size(80.dp).clickable {
+                        if(sliderPosition < 1f) {
+                            vm.prevSong()
+                        }
+                        sliderPosition = 0f
+                        vm.player.seekTo(0L)
+                    }
                 )
 
                 var isPlaying by remember { mutableStateOf(false) }
@@ -110,7 +137,7 @@ fun PlaybackScreen(vm: PlaybackViewModel) {
                     modifier = Modifier
                         .size(100.dp)
                         .clickable {
-                            if(isPlaying) {
+                            if (isPlaying) {
                                 isPlaying = false
                                 vm.player.pause()
                             } else {
@@ -123,7 +150,11 @@ fun PlaybackScreen(vm: PlaybackViewModel) {
                 Image(
                     painter = painterResource(id = R.drawable.skip_next),
                     contentDescription = "Skip Next",
-                    modifier = Modifier.size(80.dp)
+                    modifier = Modifier.size(80.dp).clickable {
+                        vm.nextSong()
+                        sliderPosition = 0f
+                        vm.player.seekTo(0L)
+                    }
                 )
 
                 Spacer(Modifier.width(10.dp))
@@ -131,7 +162,18 @@ fun PlaybackScreen(vm: PlaybackViewModel) {
                 Image(
                     painter = painterResource(id = R.drawable.repeat),
                     contentDescription = "Repeat",
-                    modifier = Modifier.size(30.dp)
+                    colorFilter = ColorFilter.tint(repeatColor),
+                    modifier = Modifier.size(30.dp).clickable {
+                        if(vm.playableList.repeat) {
+                            vm.playableList.repeat = false
+                            repeatColor = Color.LightGray
+                        } else {
+                            vm.playableList.repeat = true
+                            vm.playableList.shuffle = false
+                            repeatColor = Color.Black
+                            shuffleColor = Color.LightGray
+                        }
+                    }
                 )
 
             }

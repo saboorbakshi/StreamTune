@@ -17,10 +17,11 @@ import com.streamtune.streamtune.ui.addsong.AddSongViewModel
 import com.streamtune.streamtune.ui.greeting.Greeting
 import com.streamtune.streamtune.ui.greeting.GreetingViewModel
 import com.streamtune.streamtune.ui.playback.PlaybackScreen
+import com.streamtune.streamtune.ui.playlists.PlaylistList
+import com.streamtune.streamtune.ui.playlists.PlaylistListVM
 import com.streamtune.streamtune.ui.register.Register
 import com.streamtune.streamtune.ui.register.RegisterViewModel
 import com.streamtune.streamtune.ui.songlist.SongList
-import com.streamtune.streamtune.ui.songlist.SongListViewModel
 import com.streamtune.streamtune.ui.splash.Splash
 import com.streamtune.streamtune.ui.splash.SplashViewModel
 import com.streamtune.streamtune.ui.theme.StreamTuneTheme
@@ -56,8 +57,11 @@ private fun MainScreen() {
             composable("greeting") {
                 Greeting(GreetingViewModel(navController))
             }
+            composable("playlistlist") {
+                PlaylistList(PlaylistListVM(navController))
+            }
             composable("songlist") {
-                SongList(SongListViewModel(navController))
+                SongList(StreamTune.VMStore.songListVM)
             }
             composable("addsong") {
                 AddSong(AddSongViewModel(navController))

@@ -1,8 +1,6 @@
 package com.streamtune.streamtune.ui.greeting
 
 import android.util.Log
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -10,6 +8,7 @@ import com.streamtune.streamtune.network.ApiCalls
 import com.streamtune.streamtune.network.ApiConfig
 import com.streamtune.streamtune.ui.AppViewModel
 import kotlinx.coroutines.tasks.await
+
 class GreetingViewModel(private val navController: NavController) : AppViewModel() {
     private val tag = "LOGIN"
 
@@ -29,7 +28,7 @@ class GreetingViewModel(private val navController: NavController) : AppViewModel
             if (!idToken.isNullOrEmpty()) {
                 ApiConfig.authToken = idToken
                 ApiCalls.getPlaylists()
-                navController.navigate("songlist")
+                navController.navigate("playlistlist")
             } else {
                 ApiConfig.toast = "We're unable to log you in right now. Please try again later."
                 Log.e(tag, "Could not retrieve token ID.")
