@@ -31,7 +31,6 @@ import com.streamtune.streamtune.ui.theme.StreamTuneTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // configureFirebaseServices()
         setContent {
             StreamTuneTheme {
                 MainScreen()
@@ -44,7 +43,6 @@ class MainActivity : ComponentActivity() {
 @Preview
 private fun MainScreen() {
 
-    // A surface container using the 'background' color from the theme
     Surface(modifier = Modifier.fillMaxSize(), color = Color.White) {
 
         val navController = rememberNavController()

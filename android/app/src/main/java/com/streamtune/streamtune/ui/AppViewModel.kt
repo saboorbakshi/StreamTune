@@ -12,7 +12,6 @@ open class AppViewModel : ViewModel() {
     fun launchCatching(block: suspend CoroutineScope.() -> Unit, errorTag: String = "APP ERROR") =
         viewModelScope.launch(
             CoroutineExceptionHandler { _, throwable ->
-                ApiConfig.toast = throwable.message.orEmpty()
                 Log.e(errorTag, throwable.message.orEmpty())
             },
             block = block

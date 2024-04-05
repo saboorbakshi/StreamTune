@@ -24,7 +24,6 @@ class RegisterViewModel(private val navController: NavController) : AppViewModel
     val onRegButtonClick: () -> Unit = {
         launchCatching({
             if (password != confirmPassword) {
-                ApiConfig.toast = mismatchMsg
                 throw Exception(mismatchMsg)
             }
             Firebase.auth.createUserWithEmailAndPassword(email, password).await()
@@ -36,7 +35,6 @@ class RegisterViewModel(private val navController: NavController) : AppViewModel
                 ApiCalls.getPlaylists()
                 navController.navigate("playlistlist")
             } else {
-                ApiConfig.toast = "We're unable to register you right now. Please try again later."
                 Log.e(tag, "Could not retrieve ID token.")
             }
         }, tag)

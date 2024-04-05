@@ -3,10 +3,7 @@ package com.streamtune.streamtune.network
 import com.streamtune.streamtune.model.Playlist
 
 object ApiConfig {
-    var toast = ""
-    var songAdded = true
-    var playlistCreated = true
-    var authToken = ""
+    var authToken : String? = null
 
     // Base URL
     const val BASE_URL = "https://streamtune.azurewebsites.net/"

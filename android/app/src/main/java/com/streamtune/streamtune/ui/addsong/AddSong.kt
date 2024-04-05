@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,6 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,6 +31,15 @@ import com.streamtune.streamtune.ui.theme.StreamTuneTheme
 
 @Composable
 fun AddSong(vm: AddSongViewModel) {
+
+    val subMsg = buildAnnotatedString {
+        withStyle(style = SpanStyle(color = Color.Gray, fontSize = 18.sp)) {
+            append("Add to ")
+        }
+        withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 18.sp)) {
+            append(vm.playlistName)
+        }
+    }
 
     Surface(Modifier.fillMaxSize()) {
 
@@ -39,7 +54,11 @@ fun AddSong(vm: AddSongViewModel) {
 
             Spacer(Modifier.height(20.dp))
 
-            Text(text = "Add to " + vm.playlistName, color = Color.Gray, fontSize = 18.sp)
+            Text(
+                text = subMsg,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
 
             Spacer(Modifier.height(30.dp))
 

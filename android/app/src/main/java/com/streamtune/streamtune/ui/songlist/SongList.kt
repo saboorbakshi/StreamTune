@@ -1,5 +1,6 @@
 package com.streamtune.streamtune.ui.songlist
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,21 +21,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.streamtune.streamtune.StreamTune
 import com.streamtune.streamtune.ui.theme.StreamTuneTheme
+import androidx.navigation.NavController
 
 @Composable
 fun SongList(vm: SongListViewModel) {
+
+    BackHandler {
+        vm.navController.navigate("playlistlist") {
+            popUpTo("playlistlist") { inclusive = true }
+        }
+    }
 
     Scaffold(topBar = { } ,
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(onClick = vm.onAddSongButtonClick) {
-                Icon(Icons.Filled.Add, "Add Song")
+                Text("Add Song", color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(horizontal = 20.dp))
             }
         }, content = {
 
@@ -44,11 +53,12 @@ fun SongList(vm: SongListViewModel) {
 
                 Text(text = vm.playlistName, fontWeight = FontWeight.Bold, fontSize = 48.sp,
                     color = MaterialTheme.colorScheme.primary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.padding(10.dp)
                 )
 
-                if(StreamTune.allSongs.isEmpty()) {
-
+                if (StreamTune.allSongs.isEmpty()) {
                     Spacer(Modifier.weight(1f))
                     Text(text = "You have no songs!", textAlign = TextAlign.Center, fontSize = 24.sp,
                         color = MaterialTheme.colorScheme.outline,
@@ -57,9 +67,7 @@ fun SongList(vm: SongListViewModel) {
                     Spacer(Modifier.weight(1f))
 
                 } else {
-
                     LazyColumn {
-
                         for (song in StreamTune.allSongs) {
                             item {
                                 SongCard(SongCardViewModel(vm.navController, song))

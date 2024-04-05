@@ -18,8 +18,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,7 +36,7 @@ fun PlaylistList(vm: PlaylistListVM) {
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(onClick = vm.onAddPlaylistButtonClick) {
-                Icon(Icons.Filled.Add, "Add Playlist")
+                Text("Create Playlist", color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(horizontal = 20.dp))
             }
         },
         content = {
@@ -48,8 +50,7 @@ fun PlaylistList(vm: PlaylistListVM) {
                     modifier = Modifier.padding(10.dp)
                 )
 
-                if(StreamTune.allPlaylists.isEmpty()) {
-
+                if (StreamTune.allPlaylists.isEmpty()) {
                     Spacer(Modifier.weight(1f))
                     Text(text = "You have no Playlists!", textAlign = TextAlign.Center, fontSize = 24.sp,
                         color = MaterialTheme.colorScheme.outline,
@@ -58,9 +59,7 @@ fun PlaylistList(vm: PlaylistListVM) {
                     Spacer(Modifier.weight(1f))
 
                 } else {
-
                     LazyColumn {
-
                         for (playlist in StreamTune.allPlaylists) {
                             item {
                                 PlaylistCard(PlaylistCardVM(vm.navController, playlist))
