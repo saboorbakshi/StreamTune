@@ -11,6 +11,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import io.mockk.mockkObject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.setMain
 import org.junit.Before
@@ -26,6 +27,7 @@ class AddSongViewModelTest {
 
     private val testDispatcher = StandardTestDispatcher()
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setUp() {
 
@@ -38,7 +40,7 @@ class AddSongViewModelTest {
         mockkObject(ApiConfig)
 
         // Initialize view model
-        viewModel = AddSongViewModel(navController)
+        viewModel = AddSongViewModel(navController, "Test Playlist")
 
     }
 

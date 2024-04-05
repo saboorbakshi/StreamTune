@@ -21,7 +21,7 @@ class SongListViewModelTest {
         MockKAnnotations.init(this)
 
         // Initialize view model
-        viewModel = SongListViewModel(navController)
+        viewModel = SongListViewModel(navController, "Test Playlist")
     }
 
     @Test

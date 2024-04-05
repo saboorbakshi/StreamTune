@@ -12,6 +12,7 @@ import io.mockk.every
 import io.mockk.verify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -33,6 +34,7 @@ class RegisterViewModelTest {
 
     private val testDispatcher = StandardTestDispatcher()
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setUp() {
 
