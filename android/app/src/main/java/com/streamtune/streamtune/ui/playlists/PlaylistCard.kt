@@ -63,6 +63,7 @@ fun PlaylistCard(vm: PlaylistCardVM) {
                 modifier = Modifier
                     .size(75.dp)
                     .padding(15.dp)
+                    .clickable { vm.deletePlaylistClick() }
             )
 
         }

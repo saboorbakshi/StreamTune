@@ -7,8 +7,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -28,7 +32,11 @@ fun PlaylistList(vm: PlaylistListVM) {
 
     Scaffold(topBar = { } ,
         floatingActionButtonPosition = FabPosition.End,
-        floatingActionButton = {},
+        floatingActionButton = {
+            FloatingActionButton(onClick = vm.onAddPlaylistButtonClick) {
+                Icon(Icons.Filled.Add, "Add Playlist")
+            }
+        },
         content = {
 
             Column(modifier = Modifier

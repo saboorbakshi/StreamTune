@@ -69,20 +69,19 @@ fun SongCard(vm: SongCardViewModel) {
 
             Spacer(Modifier.weight(1f))
 
-            Image(painter = painterResource(id = R.drawable.more), contentDescription = "more",
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.tertiary),
-                modifier = Modifier
-                    .size(75.dp)
-                    .padding(15.dp)
-            )
+//            Image(painter = painterResource(id = R.drawable.more), contentDescription = "more",
+//                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.tertiary),
+//                modifier = Modifier
+//                    .size(75.dp)
+//                    .padding(15.dp)
+//                    .clickable { vm.deleteSongClick() }
+//            )
 
         }
 
     }
 
 }
-
-
 
 @Preview(showBackground = true)
 @Composable
