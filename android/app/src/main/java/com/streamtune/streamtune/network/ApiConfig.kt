@@ -4,7 +4,8 @@ import com.streamtune.streamtune.model.Playlist
 
 object ApiConfig {
     var toast = ""
-    var songAdded = false
+    var songAdded = true
+    var playlistCreated = true
     var authToken = ""
 
     // Base URL

@@ -42,7 +42,7 @@ fun SongList(vm: SongListViewModel) {
                 .fillMaxSize()
                 .padding(it)) {
 
-                Text(text = "My Songs", fontWeight = FontWeight.Bold, fontSize = 48.sp,
+                Text(text = vm.playlistName, fontWeight = FontWeight.Bold, fontSize = 48.sp,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(10.dp)
                 )
@@ -84,6 +84,6 @@ fun SongList(vm: SongListViewModel) {
 @Composable
 private fun SongListPreview() {
     StreamTuneTheme {
-        SongList(SongListViewModel(rememberNavController()))
+        SongList(SongListViewModel(rememberNavController(), playlistName = "Preview Playlist"))
     }
 }

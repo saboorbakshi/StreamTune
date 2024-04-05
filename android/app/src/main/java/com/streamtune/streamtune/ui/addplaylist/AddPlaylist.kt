@@ -1,4 +1,4 @@
-package com.streamtune.streamtune.ui.addsong
+package com.streamtune.streamtune.ui.addplaylist
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,7 +24,7 @@ import com.streamtune.streamtune.ui.components.SearchTextFieldComponent
 import com.streamtune.streamtune.ui.theme.StreamTuneTheme
 
 @Composable
-fun AddSong(vm: AddSongViewModel) {
+fun AddPlaylist(vm: AddPlaylistViewModel) {
 
     Surface(Modifier.fillMaxSize()) {
 
@@ -35,19 +35,15 @@ fun AddSong(vm: AddSongViewModel) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
 
-            Text(text = stringResource(id = R.string.find_music), color = Color.Gray, fontSize = 24.sp)
+            Text(text = stringResource(id = R.string.create_playlist_title), color = Color.Gray, fontSize = 24.sp)
 
             Spacer(Modifier.height(20.dp))
 
-            Text(text = "Add to " + vm.playlistName, color = Color.Gray, fontSize = 18.sp)
+            SearchTextFieldComponent(label = stringResource(id = R.string.create_playlist_msg), onValueChange = { vm.name = it })
 
-            Spacer(Modifier.height(30.dp))
+            Spacer(Modifier.height(20.dp))
 
-            SearchTextFieldComponent(label = stringResource(id = R.string.search_youtube_msg), onValueChange = { vm.link = it })
-
-            Spacer(Modifier.height(30.dp))
-
-            ButtonComponent(label = stringResource(id = R.string.add_song), onClick = { vm.onAddButtonClick() })
+            ButtonComponent(label = stringResource(id = R.string.create_playlist), onClick = { vm.onAddButtonClick() })
 
             Spacer(Modifier.height(100.dp))
         }
@@ -60,6 +56,6 @@ fun AddSong(vm: AddSongViewModel) {
 @Composable
 private fun AddSongPreview() {
     StreamTuneTheme {
-        AddSong(AddSongViewModel(rememberNavController(), "Preview Playlist"))
+        AddPlaylist(AddPlaylistViewModel(rememberNavController()))
     }
 }

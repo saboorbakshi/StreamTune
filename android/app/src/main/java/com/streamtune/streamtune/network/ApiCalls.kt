@@ -55,8 +55,8 @@ object ApiCalls {
                 requestMethod = "POST"
                 setRequestProperty("Content-Type", "application/json")
                 setRequestProperty("Authorization", ApiConfig.authToken)
-                connectTimeout = ApiConfig.CONNECTION_TIMEOUT
-                readTimeout = ApiConfig.READ_TIMEOUT
+                connectTimeout = 10000;
+                readTimeout = 10000;
                 doOutput = true
 
                 val requestBody = "{\"playlist_name\": \"$playlistName\", \"song_id\": \"$songID\"}"
@@ -101,8 +101,11 @@ object ApiCalls {
                         flush()
                     }
                     if (responseCode == HttpURLConnection.HTTP_OK) {
+                        ApiConfig.playlistCreated = true
+                        ApiConfig.toast = "$name was successfully created."
                         Log.i("CREATE PLAYLIST SUCCESS", "Request successful with response code $responseCode")
                     } else {
+                        ApiConfig.playlistCreated = false
                         ApiConfig.toast = "$name could not be created."
                         Log.e("CREATE PLAYLIST ERROR", "Request failed with response code $responseCode")
                     }
@@ -135,8 +138,7 @@ object ApiCalls {
                         val gson = Gson()
                         val playlistsType = object : TypeToken<List<Playlist>>() {}.type
                         StreamTune.allPlaylists = gson.fromJson(response, playlistsType)
-
-                        // StreamTune.playlists.forEach { playlist -> println(playlist) }
+                        // StreamTune.allPlaylists.forEach { playlist -> println(playlist) }
 
                     } else {
                         ApiConfig.toast = "Your playlists could not be updated."

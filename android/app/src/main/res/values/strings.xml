@@ -6,8 +6,11 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="greeting_msg">No Account? Register!</string>
-    <string name="register_msg">Already Have an Account? Login!</string>
+    <string name="register_msg">Already have an Account? Login!</string>
     <string name="find_music">Find Your Music</string>
     <string name="add_song">ADD</string>
     <string name="search_youtube_msg">Paste YouTube link</string>
+    <string name="create_playlist">CREATE</string>
+    <string name="create_playlist_msg">Your Playlist Name</string>
+    <string name="create_playlist_title">Create a Playlist</string>
 </resources>
