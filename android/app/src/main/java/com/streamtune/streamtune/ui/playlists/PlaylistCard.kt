@@ -48,7 +48,7 @@ fun PlaylistCard(vm: PlaylistCardVM) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(20.dp)
+                .padding(horizontal = 20.dp)
         ) {
             Column(
                 verticalArrangement = Arrangement.Center,

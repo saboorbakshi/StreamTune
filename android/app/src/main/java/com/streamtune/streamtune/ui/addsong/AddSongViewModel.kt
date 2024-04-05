@@ -17,7 +17,7 @@ class AddSongViewModel(navController: NavController, var playlistName: String): 
     val onAddButtonClick: () -> Unit = {
         viewModelScope.launch {
             val songID = ApiCalls.addSong(youtubeURL = link)
-            if (songID != null) {
+            if (songID != null && playlistName != "Added Songs") {
                 ApiCalls.addToPlaylist(playlistName = playlistName, songID = songID)
             }
             ApiCalls.getPlaylists()

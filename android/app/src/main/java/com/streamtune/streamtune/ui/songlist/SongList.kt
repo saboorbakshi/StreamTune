@@ -51,11 +51,11 @@ fun SongList(vm: SongListViewModel) {
                 .fillMaxSize()
                 .padding(it)) {
 
-                Text(text = vm.playlistName, fontWeight = FontWeight.Bold, fontSize = 48.sp,
+                Text(text = vm.playlistName, fontWeight = FontWeight.Bold, fontSize = 40.sp,
                     color = MaterialTheme.colorScheme.primary,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(10.dp)
+                    modifier = Modifier.padding(20.dp)
                 )
 
                 if (StreamTune.allSongs.isEmpty()) {
@@ -71,7 +71,7 @@ fun SongList(vm: SongListViewModel) {
                         for (song in StreamTune.allSongs) {
                             item {
                                 SongCard(SongCardViewModel(vm.navController, song))
-                                HorizontalDivider()
+                                HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp))
                             }
                         }
 

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -55,7 +56,8 @@ fun NormalTextFieldComponent(label: String, onValueChange: (String) -> Unit) {
             email = it
             onValueChange(it)
         },
-        label = { Text(label) }
+        label = { Text(label) },
+        shape = RoundedCornerShape(16.dp)
     )
 }
 
@@ -71,6 +73,7 @@ fun PasswordTextFieldComponent(label: String, onValueChange: (String) -> Unit) {
             onValueChange(it)
         },
         label = { Text(label) },
+        shape = RoundedCornerShape(16.dp),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Password,
             imeAction = ImeAction.Done),
@@ -93,7 +96,7 @@ fun PasswordTextFieldComponent(label: String, onValueChange: (String) -> Unit) {
 fun ButtonComponent(label: String, onClick: () -> Unit) {
     Button(
         onClick = { onClick() },
-        modifier = Modifier.width(225.dp).height(45.dp)
+        modifier = Modifier.width(225.dp).height(50.dp)
     ) {
         Text(label)
     }
@@ -116,7 +119,7 @@ fun ClickableTextComponent(msg: String, onClick: () -> Unit) {
 }
 
 @Composable
-fun SearchTextFieldComponent(label: String, onValueChange: (String) -> Unit) {
+fun IconTextFieldComponent(label: String, onValueChange: (String) -> Unit, id: Int) {
     var url by remember { mutableStateOf("") }
     OutlinedTextField(
         value = url,
@@ -125,7 +128,14 @@ fun SearchTextFieldComponent(label: String, onValueChange: (String) -> Unit) {
             onValueChange(it)
         },
         label = { Text(label) },
+        shape = RoundedCornerShape(16.dp),
         modifier = Modifier.fillMaxWidth(),
-        trailingIcon = { Image(painter = painterResource(id = R.drawable.search), contentDescription = "Search") }
+        trailingIcon = {
+            IconButton(onClick = {
+                
+            }) {
+                Image(painter = painterResource(id = id), contentDescription = null)
+            }
+        }
     )
 }

@@ -26,17 +26,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.streamtune.streamtune.R
 import com.streamtune.streamtune.ui.components.ButtonComponent
-import com.streamtune.streamtune.ui.components.SearchTextFieldComponent
+import com.streamtune.streamtune.ui.components.IconTextFieldComponent
 import com.streamtune.streamtune.ui.theme.StreamTuneTheme
 
 @Composable
 fun AddSong(vm: AddSongViewModel) {
 
     val subMsg = buildAnnotatedString {
-        withStyle(style = SpanStyle(color = Color.Gray, fontSize = 18.sp)) {
+        withStyle(style = SpanStyle(color = Color.Gray, fontSize = 22.sp)) {
             append("Add to ")
         }
-        withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 18.sp)) {
+        withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 22.sp)) {
             append(vm.playlistName)
         }
     }
@@ -50,9 +50,9 @@ fun AddSong(vm: AddSongViewModel) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
 
-            Text(text = stringResource(id = R.string.find_music), color = Color.Gray, fontSize = 24.sp)
+            Text(text = stringResource(id = R.string.find_music), color = Color.Gray, fontSize = 36.sp)
 
-            Spacer(Modifier.height(20.dp))
+            Spacer(Modifier.height(15.dp))
 
             Text(
                 text = subMsg,
@@ -62,7 +62,11 @@ fun AddSong(vm: AddSongViewModel) {
 
             Spacer(Modifier.height(30.dp))
 
-            SearchTextFieldComponent(label = stringResource(id = R.string.search_youtube_msg), onValueChange = { vm.link = it })
+            IconTextFieldComponent(
+                label = stringResource(id = R.string.search_youtube_msg),
+                onValueChange = { vm.link = it },
+                R.drawable.music
+            )
 
             Spacer(Modifier.height(30.dp))
 
