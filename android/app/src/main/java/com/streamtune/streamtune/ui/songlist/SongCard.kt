@@ -108,7 +108,7 @@ fun SongCard(vm: SongCardViewModel) {
 @Composable
 private fun SongCardPreview() {
     StreamTuneTheme {
-        SongCard(SongCardViewModel(rememberNavController(),
+        SongCard(SongCardViewModel(rememberNavController(), "Preview Playlist",
             Song("70", "sndo;fsandfwendiew'asddwed", "DSFNWDO;FNWEIDJC S.DFNSDAWEDRNDF", "", "https://upload.wikimedia.org/wikipedia/en/b/b0/Yoasobi_-_Idol.png", 120)
         ))
     }
