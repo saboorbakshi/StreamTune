@@ -40,10 +40,10 @@ fun SongList(vm: SongListViewModel) {
     }
 
     Scaffold(topBar = { } ,
-        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButtonPosition = FabPosition.Center,
         floatingActionButton = {
-            FloatingActionButton(onClick = vm.onAddSongButtonClick) {
-                Text("Add Song", color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(horizontal = 20.dp))
+            FloatingActionButton(onClick = vm.onAddSongButtonClick, modifier = Modifier.padding(vertical = 18.dp)) {
+                Text("Add Song", fontSize = 18.sp, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(horizontal = 20.dp))
             }
         }, content = {
 
@@ -70,8 +70,8 @@ fun SongList(vm: SongListViewModel) {
                     LazyColumn {
                         for (song in StreamTune.allSongs) {
                             item {
-                                SongCard(SongCardViewModel(vm.navController, song))
-                                HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp))
+                                SongCard(SongCardViewModel(vm.navController, vm.playlistName, song))
+                                HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp))
                             }
                         }
 

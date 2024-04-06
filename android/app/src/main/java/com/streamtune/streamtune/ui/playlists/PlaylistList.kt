@@ -28,10 +28,10 @@ import com.streamtune.streamtune.ui.theme.StreamTuneTheme
 fun PlaylistList(vm: PlaylistListVM) {
 
     Scaffold(topBar = { } ,
-        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButtonPosition = FabPosition.Center,
         floatingActionButton = {
-            FloatingActionButton(onClick = vm.onAddPlaylistButtonClick) {
-                Text("Create Playlist", color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(horizontal = 20.dp))
+            FloatingActionButton(onClick = vm.onAddPlaylistButtonClick, modifier = Modifier.padding(vertical = 18.dp)) {
+                Text("Create Playlist", fontSize = 18.sp, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(horizontal = 20.dp))
             }
         },
         content = {
