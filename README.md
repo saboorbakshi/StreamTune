@@ -18,9 +18,9 @@ plans or those seeking background play capabilities.
 
 ## User Documentation
 
-### [How to install StreamTune]()
+### * [How to install StreamTune]()
 
-### [How to use StreamTune]()
+### * [How to use StreamTune]()
 
 ## Design Documentation
 
