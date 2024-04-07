@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class RegisterViewModel(private val navController: NavController) : ViewModel() {
-    private val tag = "REGISTER ERROR"
+    // private val tag = "REGISTER ERROR"
 
     var email: String = ""
     var password: String = ""
@@ -38,12 +38,12 @@ class RegisterViewModel(private val navController: NavController) : ViewModel() 
                         navController.navigate("playlistlist")
                     } else {
                         showToast("User could not be verified.")
-                        Log.e(tag, "Token ID retrieved was empty.")
+                        // Log.e(tag, "Token ID retrieved was empty.")
                     }
                 }
             } catch (e: Exception) {
                 showToast(e.localizedMessage ?: "An error occurred.")
-                Log.e(tag, e.localizedMessage as String)
+                // Log.e(tag, e.localizedMessage as String)
             }
         }
     }

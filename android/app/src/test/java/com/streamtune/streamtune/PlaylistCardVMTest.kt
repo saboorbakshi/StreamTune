@@ -14,6 +14,7 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -34,6 +35,7 @@ class PlaylistCardVMTest {
 
     private val testDispatcher = StandardTestDispatcher()
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setUp() {
         // Set Main dispatcher for testing
@@ -53,6 +55,7 @@ class PlaylistCardVMTest {
         verify { navController.navigate("songlist") }
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun deletePlaylist() = runTest {
         // Assign

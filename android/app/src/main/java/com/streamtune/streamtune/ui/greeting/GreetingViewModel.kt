@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class GreetingViewModel(private val navController: NavController) : ViewModel() {
-    private val tag = "LOGIN ERROR"
+    // private val tag = "LOGIN ERROR"
 
     var email: String = ""
     var password: String = ""
@@ -33,12 +33,12 @@ class GreetingViewModel(private val navController: NavController) : ViewModel() 
                         navController.navigate("playlistlist")
                     } else {
                         showToast("User could not be verified.")
-                        Log.e(tag, "Token ID retrieved was empty.")
+                        // Log.e(tag, "Token ID retrieved was empty.")
                     }
                 }
             } catch (e: Exception) {
                 showToast(e.localizedMessage ?: "An error occurred.")
-                Log.e(tag, e.localizedMessage as String)
+                // Log.e(tag, e.localizedMessage as String)
             }
         }
     }
