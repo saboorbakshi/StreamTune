@@ -55,7 +55,7 @@ class SplashViewModelTest {
         viewModel.onAppStart()
 
         // Assert
-        verify { navController.navigate("songlist") }
+        verify { navController.navigate("playlistlist") }
     }
 
     @Test
