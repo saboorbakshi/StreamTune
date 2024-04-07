@@ -8,7 +8,7 @@ plans or those seeking background play capabilities.
 
 ## Introduction Video
 
-![](/path/to/video.mp4)
+![](https://git.uwaterloo.ca/saabaksh/team-101-9/-/blob/main/intro.mp4)
 
 ## Team 101-9
 * Beatrice Prayogo - bprayogo@uwaterloo.ca
