@@ -1,15 +1,19 @@
 package com.streamtune.streamtune
 
 import androidx.navigation.NavController
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GetTokenResult
 import com.streamtune.streamtune.ui.greeting.GreetingViewModel
 import io.mockk.MockKAnnotations
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.verify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.setMain
 import org.junit.Before
@@ -20,7 +24,7 @@ class GreetingViewModelTest {
     // Mock dependencies
     private val navController = mockk<NavController>(relaxed = true)
     private val firebaseAuth = mockk<FirebaseAuth>(relaxed = true)
-    private val tokenResult = mockk<GetTokenResult>(relaxed = true)
+    private val firebaseUser = mockk<FirebaseUser>(relaxed = true)
 
     // System under test
     private lateinit var viewModel: GreetingViewModel
@@ -53,7 +57,7 @@ class GreetingViewModelTest {
     }
 
     @Test
-    fun testUnsuccessfulLogin() {
+    fun unsuccessfulLogin() {
 
         // Arrange
         viewModel.email = "test@example.com"
@@ -69,6 +73,33 @@ class GreetingViewModelTest {
 
         // Assert
         verify(exactly = 0) { navController.navigate("songlist") }
-
     }
+
+//    @Test
+//    fun successfulLogin() {
+//
+//        // Arrange
+//        // Mock Firebase behavior
+//        val idToken = "exampleToken"
+//        every { firebaseAuth.signInWithEmailAndPassword(any(), any()) } returns mockk()
+//        every { firebaseAuth.currentUser } returns firebaseUser
+//        val getTokenTask = mockk<Task<GetTokenResult>>()
+//        val getTokenResult = mockk<GetTokenResult> {
+//            every { token } returns idToken
+//        }
+//        every { firebaseUser.getIdToken(false) } returns getTokenTask
+//        coEvery { getTokenTask.await() } returns getTokenResult
+//
+//
+//        // Act
+//        viewModel.email = "test@example.com"
+//        viewModel.password = "wrongpassword"
+//        viewModel.onLogButtonClick()
+//
+//        // Assert
+//        verify { firebaseAuth.signInWithEmailAndPassword(viewModel.email, viewModel.password) }
+//        verify { firebaseUser.getIdToken(false) }
+//
+//        verify { navController.navigate("playlistlist")}
+//    }
 }
