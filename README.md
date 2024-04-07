@@ -21,7 +21,7 @@
 
 ## Meeting Minutes & Developer Journals
 
-# Meeting Minutes
+### Meeting Minutes
 * [Meeting 1](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Meeting-Minutes/Meeting-Minutes-1)
 * [Meeting 2](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Meeting-Minutes/Meeting-Minutes-2)
 * [Meeting 3](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Meeting-Minutes/Meeting-Minutes-3)
@@ -31,7 +31,7 @@
 * [Meeting 7](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Meeting-Minutes/Meeting-Minutes-7)
 * [Meeting 8](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Meeting-Minutes/Meeting-Minutes-8)
 
-# Developer Journals
+### Developer Journals
 * [Beatrice Prayogo](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Development-Journal/Beatrice-Prayogo)
 * [Frank Tao](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Development-Journal/Frank-Tao)
 * [Kevin Liu](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Development-Journal/Kevin-Liu)
