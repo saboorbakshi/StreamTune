@@ -30,7 +30,7 @@ plans or those seeking background play capabilities.
 * [Sprint 1](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Release-Notes:-Sprint-1)
 * [Sprint 2](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Release-Notes:-Sprint-2)
 * [Sprint 3](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Release-Notes:-Sprint-3)
-* [Sprint 4](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Release-Notes:-Sprint-4) - update APK
+* [Sprint 4](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Release-Notes:-Sprint-4) - update APK & date based on APK creation
 
 ## Meeting Minutes & Developer Journals
 
