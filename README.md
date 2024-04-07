@@ -1,6 +1,4 @@
-## StreamTune
-
-[Project Proposal](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Project-Proposal)
+# StreamTune
 
 ## Description
 
@@ -18,18 +16,24 @@ plans or those seeking background play capabilities.
 
 ## User Documentation
 
-### * [How to install StreamTune]()
+* [How to install StreamTune](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/How-to-install-StreamTune)
 
-### * [How to use StreamTune]()
+* [How to use StreamTune](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/How-to-use-StreamTune)
 
 ## Design Documentation
+
+* [Persona & Prototype](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Project-Proposal) - update this (figma too?)
+
+* [Class Diagrams](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Class-Diagrams)
+
+* [Component Diagram](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Component-Diagram)
 
 ## Release Notes
 
 * [Sprint 1](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Release-Notes:-Sprint-1)
 * [Sprint 2](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Release-Notes:-Sprint-2)
 * [Sprint 3](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Release-Notes:-Sprint-3)
-* [Sprint 4](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Release-Notes:-Sprint-4)
+* [Sprint 4](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Release-Notes:-Sprint-4) - update APK
 
 ## Meeting Minutes & Developer Journals
 
