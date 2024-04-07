@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.streamtune.streamtune.R
 import com.streamtune.streamtune.model.Playlist
+import com.streamtune.streamtune.network.ApiConfig
 import com.streamtune.streamtune.ui.theme.StreamTuneTheme
 
 @Composable
@@ -76,14 +77,16 @@ fun PlaylistCard(vm: PlaylistCardVM) {
 
             Spacer(Modifier.width(10.dp))
 
-            Image(
-                painter = painterResource(id = R.drawable.delete_forever),
-                contentDescription = "Delete Playlist",
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.tertiary),
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable { vm.deletePlaylistClick() }
-            )
+            if (vm.playlist.name != ApiConfig.MASTER_PLAYLIST_NAME) {
+                Image(
+                    painter = painterResource(id = R.drawable.delete_forever),
+                    contentDescription = "Delete Playlist",
+                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.tertiary),
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clickable { vm.deletePlaylistClick() }
+                )
+            }
         }
     }
 }

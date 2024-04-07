@@ -1,5 +1,7 @@
 package com.streamtune.streamtune.ui.register
 
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,6 +26,14 @@ import com.streamtune.streamtune.ui.theme.StreamTuneTheme
 
 @Composable
 fun Register(vm: RegisterViewModel) {
+
+    BackHandler {}
+
+    val context = LocalContext.current
+    vm.showToast = { message ->
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()

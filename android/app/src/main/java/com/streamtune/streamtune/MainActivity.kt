@@ -15,7 +15,6 @@ import androidx.navigation.compose.rememberNavController
 import com.streamtune.streamtune.ui.addplaylist.AddPlaylist
 import com.streamtune.streamtune.ui.addplaylist.AddPlaylistViewModel
 import com.streamtune.streamtune.ui.addsong.AddSong
-import com.streamtune.streamtune.ui.addsong.AddSongViewModel
 import com.streamtune.streamtune.ui.greeting.Greeting
 import com.streamtune.streamtune.ui.greeting.GreetingViewModel
 import com.streamtune.streamtune.ui.playback.PlaybackScreen
@@ -24,8 +23,6 @@ import com.streamtune.streamtune.ui.playlists.PlaylistListVM
 import com.streamtune.streamtune.ui.register.Register
 import com.streamtune.streamtune.ui.register.RegisterViewModel
 import com.streamtune.streamtune.ui.songlist.SongList
-import com.streamtune.streamtune.ui.splash.Splash
-import com.streamtune.streamtune.ui.splash.SplashViewModel
 import com.streamtune.streamtune.ui.theme.StreamTuneTheme
 
 class MainActivity : ComponentActivity() {
@@ -48,9 +45,6 @@ private fun MainScreen() {
         val navController = rememberNavController()
 
         NavHost(navController = navController, startDestination = "greeting") {
-            composable("splash") {
-                Splash(SplashViewModel(navController))
-            }
             composable("register") {
                 Register(RegisterViewModel(navController))
             }

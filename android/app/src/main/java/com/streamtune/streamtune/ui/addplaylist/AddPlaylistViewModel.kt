@@ -5,13 +5,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.streamtune.streamtune.StreamTune
 import com.streamtune.streamtune.network.ApiCalls
-import com.streamtune.streamtune.network.ApiConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
     class AddPlaylistViewModel(navController: NavController): ViewModel() {
     var name = ""
+    var showToast: (String) -> Unit = {}
 
     val onAddButtonClick: () -> Unit = {
         var noDuplicates = true
@@ -31,7 +31,7 @@ import kotlinx.coroutines.withContext
                 }
             }
         } else {
-            navController.navigate("playlistlist")
+            showToast("$name already exists. Try using another name.")
         }
     }
 }
