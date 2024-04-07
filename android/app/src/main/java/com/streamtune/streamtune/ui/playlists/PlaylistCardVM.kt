@@ -1,6 +1,5 @@
 package com.streamtune.streamtune.ui.playlists
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController

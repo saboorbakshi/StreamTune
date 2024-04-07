@@ -1,7 +1,5 @@
 package com.streamtune.streamtune.ui.components
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -26,7 +24,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -35,8 +32,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.streamtune.streamtune.R
-import com.streamtune.streamtune.network.ApiConfig
 
 @Composable
 fun HeadingTextComponent(label: String) {
@@ -107,7 +102,7 @@ fun ClickableTextComponent(msg: String, onClick: () -> Unit) {
     val interactionSource = remember { MutableInteractionSource() }
     Text(
         text = msg,
-        fontWeight = FontWeight.SemiBold,
+        fontWeight = FontWeight.Normal,
         modifier = Modifier
             .padding(15.dp)
             .clickable(

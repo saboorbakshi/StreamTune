@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import com.streamtune.streamtune.StreamTune
 import com.streamtune.streamtune.model.Song
 import com.streamtune.streamtune.network.ApiCalls
+import com.streamtune.streamtune.network.ApiConfig
 import com.streamtune.streamtune.ui.playback.PlaybackViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,12 +27,24 @@ class SongCardViewModel(navController: NavController, private val playlistName: 
             for (playlist in StreamTune.allPlaylists) {
                 if (playlist.name == playlistName) {
                     StreamTune.allSongs = playlist.songs.toMutableList()
-                    break;
+                    break
                 }
             }
 
             withContext(Dispatchers.Main) {
                 navController.navigate("songlist")
+            }
+
+            // keep feature?
+            if (playlistName == ApiConfig.MASTER_PLAYLIST_NAME) {
+                for (p in StreamTune.allPlaylists) {
+                    for (s in p.songs) {
+                        if (s.id == song.id) {
+                            ApiCalls.deleteFromPlaylist(playlistName = p.name, songID = s.id)
+                        }
+                    }
+                }
+                ApiCalls.getPlaylists()
             }
         }
     }

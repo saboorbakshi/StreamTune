@@ -25,18 +25,11 @@ object ApiCalls {
                     doOutput = true
 
                     val requestBody = "{\"url\": \"$youtubeURL\"}"
-                    OutputStreamWriter(outputStream).use { it.write(requestBody) }
-
-                    // Construct and log the cURL command
-//                    val curlCommand = """
-//                    curl -X POST \
-//                    '${url}' \
-//                    -H 'Content-Type: application/json' \
-//                    -H 'Authorization: ${getRequestProperty("Authorization")}' \
-//                    -d '$requestBody'
-//                    """.trimIndent()
-//                    Log.i("CURL COMMAND", curlCommand)
-
+                    OutputStreamWriter(outputStream).apply {
+                        write(requestBody)
+                        flush()
+                        close()
+                    }
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         songID = inputStream.bufferedReader().use(BufferedReader::readText)
                         Log.i("ADD SONG SUCCESS", "Request successful with response code $responseCode, songID: $songID.")
@@ -69,6 +62,7 @@ object ApiCalls {
                     OutputStreamWriter(outputStream).apply {
                         write(requestBody)
                         flush()
+                        close()
                     }
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         Log.i("ADD2PLAYLIST SUCCESS", "Request successful with response code $responseCode, Added to: $playlistName.")
@@ -100,6 +94,7 @@ object ApiCalls {
                     OutputStreamWriter(outputStream).apply {
                         write(requestBody)
                         flush()
+                        close()
                     }
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         Log.i("CREATE PLAYLIST SUCCESS", "Request successful with response code $responseCode")
@@ -162,6 +157,7 @@ object ApiCalls {
                     OutputStreamWriter(outputStream).apply {
                         write(requestBody)
                         flush()
+                        close()
                     }
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         Log.i("DELETE PLAYLIST SUCCESS", "Request successful with response code $responseCode")
@@ -193,6 +189,7 @@ object ApiCalls {
                     OutputStreamWriter(outputStream).apply {
                         write(requestBody)
                         flush()
+                        close()
                     }
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         Log.i("DELETE FROM PLAYLIST SUCCESS", "Request successful with response code $responseCode")
