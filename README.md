@@ -14,7 +14,7 @@ plans or those seeking background play capabilities.
 * Kevin Liu - k267liu@uwaterloo.ca
 * Saboor Bakshi - saabaksh@uwaterloo.ca
 
-[Reflections](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Reflections)
+####[Reflections](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Reflections)
 
 ## User Documentation
 
