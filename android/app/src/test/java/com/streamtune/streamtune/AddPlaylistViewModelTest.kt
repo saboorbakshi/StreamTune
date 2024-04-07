@@ -88,7 +88,8 @@ class AddPlaylistViewModelTest {
         //Assert
         coVerify (exactly = 0) { ApiCalls.createPlaylist(viewModel.name) }
         coVerify (exactly = 0) { ApiCalls.getPlaylists() }
-        verify { navController.navigate("playlistlist") }
 
+        // Verify that no navigation action was triggered"
+        verify(exactly = 0) { navController.navigate(any<String>()) }
     }
 }

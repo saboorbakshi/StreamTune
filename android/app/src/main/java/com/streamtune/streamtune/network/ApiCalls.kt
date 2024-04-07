@@ -11,17 +11,16 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 object ApiCalls {
-    suspend fun addSong(youtubeURL: String): String? {
-        return withContext(Dispatchers.IO) {
-            val url = URL(ApiConfig.BASE_URL + ApiConfig.ADD_SONG_ENDPOINT)
-            var songID: String? = null
-            (url.openConnection() as HttpURLConnection).apply {
-                try {
-                    requestMethod = "POST"
-                    setRequestProperty("Content-Type", "application/json")
-                    setRequestProperty("Authorization", ApiConfig.authToken)
-                    connectTimeout = ApiConfig.CONNECTION_TIMEOUT * 2
-                    readTimeout = ApiConfig.READ_TIMEOUT * 2
+        suspend fun addSong(youtubeURL: String): String? {
+            return withContext(Dispatchers.IO) {
+                val url = URL(ApiConfig.BASE_URL + ApiConfig.ADD_SONG_ENDPOINT)
+                var songID: String? = null
+                (url.openConnection() as HttpURLConnection).apply {
+                    try {
+                        requestMethod = "POST"
+                        setRequestProperty("Content-Type", "application/json")
+                        setRequestProperty("Authorization", ApiConfig.authToken)
+                    connectTimeout = ApiConfig.CONNECTION_TIMEOUT
                     doOutput = true
 
                     val requestBody = "{\"url\": \"$youtubeURL\"}"

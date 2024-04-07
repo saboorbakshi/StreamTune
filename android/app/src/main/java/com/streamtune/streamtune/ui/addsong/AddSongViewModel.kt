@@ -1,5 +1,7 @@
 package com.streamtune.streamtune.ui.addsong
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
@@ -14,9 +16,13 @@ class AddSongViewModel(navController: NavController, var playlistName: String): 
     var link = ""
     var showToast: (String) -> Unit = {}
 
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
     val onAddButtonClick: () -> Unit = {
         val regex = """^(https?://)?(www\.)?(youtube\.com)/.+$""".toRegex()
         if (link.matches(regex)) {
+            _isLoading.value = true
             viewModelScope.launch {
                 val songID = ApiCalls.addSong(youtubeURL = link)
                 if (songID != null) {
@@ -31,10 +37,13 @@ class AddSongViewModel(navController: NavController, var playlistName: String): 
                             break
                         }
                     }
+                } else {
+                    showToast("Your YouTube link could not be added.")
                 }
                 withContext(Dispatchers.Main) {
                     navController.navigate("songlist")
                 }
+                _isLoading.value = false
             }
         } else {
             showToast("$link is not a valid YouTube link.")
