@@ -8,6 +8,8 @@ plans or those seeking background play capabilities.
 
 ## Introduction Video
 
+![Alt text for your video](/path/to/video.mp4)
+
 ## Team 101-9
 * Beatrice Prayogo - bprayogo@uwaterloo.ca
 * Frank Tao - f5tao@uwaterloo.ca
