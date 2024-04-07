@@ -2,16 +2,19 @@ package com.streamtune.streamtune.ui.addsong
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +33,7 @@ import com.streamtune.streamtune.R
 import com.streamtune.streamtune.ui.components.ButtonComponent
 import com.streamtune.streamtune.ui.components.IconTextFieldComponent
 import com.streamtune.streamtune.ui.theme.StreamTuneTheme
+import androidx.compose.runtime.livedata.observeAsState
 
 @Composable
 fun AddSong(vm: AddSongViewModel) {
@@ -48,40 +52,49 @@ fun AddSong(vm: AddSongViewModel) {
         }
     }
 
+    val isLoading by vm.isLoading.observeAsState(false)
+
     Surface(Modifier.fillMaxSize()) {
 
-        Column(
-            Modifier
-                .padding(40.dp, 0.dp, 40.dp, 0.dp)
-                .fillMaxHeight(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally) {
+        if (isLoading) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                CircularProgressIndicator() // Show loading spinner
+            }
 
-            Text(text = stringResource(id = R.string.find_music), color = Color.Gray, fontSize = 36.sp)
+        } else {
 
-            Spacer(Modifier.height(15.dp))
+            Column(
+                Modifier
+                    .padding(40.dp, 0.dp, 40.dp, 0.dp)
+                    .fillMaxHeight(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally) {
 
-            Text(
-                text = subMsg,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+                Text(text = stringResource(id = R.string.find_music), color = Color.Gray, fontSize = 36.sp)
 
-            Spacer(Modifier.height(30.dp))
+                Spacer(Modifier.height(15.dp))
 
-            IconTextFieldComponent(
-                label = stringResource(id = R.string.search_youtube_msg),
-                onValueChange = { vm.link = it },
-                R.drawable.music
-            )
+                Text(
+                    text = subMsg,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
 
-            Spacer(Modifier.height(30.dp))
+                Spacer(Modifier.height(30.dp))
 
-            ButtonComponent(label = stringResource(id = R.string.add_song), onClick = { vm.onAddButtonClick() })
+                IconTextFieldComponent(
+                    label = stringResource(id = R.string.search_youtube_msg),
+                    onValueChange = { vm.link = it },
+                    R.drawable.music
+                )
 
-            Spacer(Modifier.height(100.dp))
+                Spacer(Modifier.height(30.dp))
+
+                ButtonComponent(label = stringResource(id = R.string.add_song), onClick = { vm.onAddButtonClick() })
+
+                Spacer(Modifier.height(100.dp))
+            }
         }
-
     }
 
 }

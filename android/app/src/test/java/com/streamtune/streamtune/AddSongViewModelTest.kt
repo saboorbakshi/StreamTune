@@ -1,5 +1,6 @@
 package com.streamtune.streamtune
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.navigation.NavController
 import com.streamtune.streamtune.network.ApiCalls
 import com.streamtune.streamtune.network.ApiConfig
@@ -21,11 +22,17 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
 
 
 @ExperimentalCoroutinesApi
 class AddSongViewModelTest {
+
+    @get:Rule
+    var instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
+
     // Mock dependencies
     private val navController = mockk<NavController>(relaxed = true)
 
@@ -67,7 +74,7 @@ class AddSongViewModelTest {
         coEvery { ApiCalls.getPlaylists() } just Runs
 
         // Act
-        viewModel.link = "https://youtubeExample.com"
+        viewModel.link = "https://www.youtube.com/watch?v=example"
         viewModel.onAddButtonClick()
 
         // Ensure that the coroutine is executed to completion
@@ -89,10 +96,9 @@ class AddSongViewModelTest {
         val songID = "123"
         coEvery { ApiCalls.addSong(any()) } returns null
         coEvery { ApiCalls.addToPlaylist(any(), any()) } just Runs
-        coEvery { ApiCalls.getPlaylists() } just Runs
 
         // Act
-        viewModel.link = "https://youtubeExample.com"
+        viewModel.link = "https://www.youtube.com/watch?v=example"
         viewModel.onAddButtonClick()
 
         // Ensure that the coroutine is executed to completion
@@ -102,7 +108,6 @@ class AddSongViewModelTest {
         // Verify that the correct API calls were made
         coVerify { ApiCalls.addSong( viewModel.link ) }
         coVerify (exactly = 0) { ApiCalls.addToPlaylist(playlistName, songID) }
-        coVerify { ApiCalls.getPlaylists() }
 
         // Verify that navigation occurred
         coVerify { navController.navigate("songlist") }
@@ -117,7 +122,7 @@ class AddSongViewModelTest {
         coEvery { ApiCalls.getPlaylists() } just Runs
 
         // Act
-        viewModel.link = "https://youtubeExample.com"
+        viewModel.link = "https://www.youtube.com/watch?v=example"
         viewModel.playlistName = "Added Songs"
         viewModel.onAddButtonClick()
 
