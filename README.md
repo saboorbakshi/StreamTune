@@ -8,7 +8,7 @@ plans or those seeking background play capabilities.
 
 ## Introduction Video
 
-![](team-101-9/intro.mp4)
+![](intro.mp4)
 
 ## Team 101-9
 * Beatrice Prayogo - bprayogo@uwaterloo.ca
