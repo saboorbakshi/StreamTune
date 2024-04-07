@@ -6,11 +6,15 @@
 
 ## Introduction Video
 
-## Team 101-9
+## Team 101-9 Contact Info
+* Beatrice Prayogo - bprayogo@uwaterloo.ca
+* Frank Tao - f5tao@uwaterloo.ca
+* Kevin Liu - k267liu@uwaterloo.ca
+* Saboor Bakshi - saabaksh@uwaterloo.ca
 
-## User documentation
+## User Documentation
 
-## Design documentation
+## Design Documentation
 
 ## Release Notes
 
