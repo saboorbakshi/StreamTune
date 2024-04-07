@@ -17,15 +17,12 @@ plans or those seeking background play capabilities.
 ## User Documentation
 
 * [How to install StreamTune](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/How-to-install-StreamTune)
-
 * [How to use StreamTune](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/How-to-use-StreamTune)
 
 ## Design Documentation
 
 * [Persona & Prototype](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Project-Proposal) - update this (figma too?)
-
 * [Class Diagrams](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Class-Diagrams)
-
 * [Component Diagram](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Component-Diagram)
 
 ## Release Notes
