@@ -50,6 +50,6 @@ plans or those seeking background play capabilities.
 * [Kevin Liu](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Development-Journal/Kevin-Liu)
 * [Saboor Bakshi](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Development-Journal/Saboor-Bakshi)
 
-## Ending
+## Final Notes
 
 * [Reflections](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Reflections)
