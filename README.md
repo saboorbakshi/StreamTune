@@ -4,7 +4,9 @@
 
 ## Description
 
-StreamTune offers a seamless solution for converting YouTube videos into MP3s, catering specifically to music, podcast, and lecture enthusiasts who prefer audio content rather than video. With features like direct YouTube link uploads and personalized playlists, it bridges the gap for users with limited data plans or those seeking background play capabilities. 
+StreamTune offers a seamless solution for converting YouTube videos into MP3s, catering specifically to music, podcast, and lecture enthusiasts who prefer
+audio content rather than video. With features like direct YouTube link uploads and personalized playlists, it bridges the gap for users with limited data
+plans or those seeking background play capabilities. 
 
 ## Introduction Video
 
