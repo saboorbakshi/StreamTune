@@ -23,7 +23,7 @@ plans or those seeking background play capabilities.
 
 ## Design Documentation
 
-* [Persona & Prototype](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Project-Proposal) - Revised, up-to-date versions of your persona and prototypes.
+* [Persona & Prototype](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Project-Proposal)
 * [Class Diagrams](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Class-Diagrams)
 * [Component Diagram](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Component-Diagram)
 
