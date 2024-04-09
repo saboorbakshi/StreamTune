@@ -11,11 +11,15 @@ https://github.com/saboorbakshi/StreamTune/assets/90419652/a3fe4a9e-1387-44d4-a2
 
 ## User Documentation
 
-* [How to install StreamTune](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/How-to-install-StreamTune)
-* [How to use StreamTune](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/How-to-use-StreamTune)
+* [How to install StreamTune](https://github.com/saboorbakshi/StreamTune/wiki/How-to-install-StreamTune)
+* [How to use StreamTune](https://github.com/saboorbakshi/StreamTune/wiki/How-to-use-StreamTune)
 
 ## Design Documentation
 
-* [Persona & Prototype](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Project-Proposal)
-* [Class Diagrams](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Class-Diagrams)
-* [Component Diagram](https://git.uwaterloo.ca/saabaksh/team-101-9/-/wikis/Component-Diagram)
+* [Prototype](https://www.figma.com/file/aUS71ACJcowSnjyBRoYlei/StreamTune?type=design&node-id=0-1&mode=design&t=a53XmDWV8p2OV2Bx-0)
+  ![Screenshot_2024-04-07_at_9 50 09_PM-2](https://github.com/saboorbakshi/StreamTune/assets/90419652/3775a715-7e3a-4902-969a-7e2422d488c3)
+
+
+
+* Class Diagram
+* Component Diagram
