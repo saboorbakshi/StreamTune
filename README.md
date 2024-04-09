@@ -7,8 +7,7 @@ audio content rather than video. With features like direct YouTube link uploads 
 plans or those seeking background play capabilities. 
 
 ## Introduction Video
-
-![](intro.mp4)
+https://github.com/saboorbakshi/StreamTune/assets/90419652/a3fe4a9e-1387-44d4-a2e1-251510a2c9b9
 
 ## Team 101-9
 * Beatrice Prayogo - bprayogo@uwaterloo.ca
