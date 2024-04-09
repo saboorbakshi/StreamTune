@@ -16,8 +16,9 @@ https://github.com/saboorbakshi/StreamTune/assets/90419652/a3fe4a9e-1387-44d4-a2
 
 ## Design Documentation
 
+* [Component and Class Diagrams](https://github.com/saboorbakshi/StreamTune/wiki/Component-and-Class-Diagrams)
 * [Prototype](https://www.figma.com/file/aUS71ACJcowSnjyBRoYlei/StreamTune?type=design&node-id=0-1&mode=design&t=a53XmDWV8p2OV2Bx-0)
 
 ![Screenshot_2024-04-07_at_9 50 09_PM-2](https://github.com/saboorbakshi/StreamTune/assets/90419652/3775a715-7e3a-4902-969a-7e2422d488c3)
 
-* [Component and Class Diagrams](https://github.com/saboorbakshi/StreamTune/wiki/Component-and-Class-Diagrams)
+
